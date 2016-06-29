@@ -1,0 +1,29 @@
+obj.ondragstart=function(e){  //轮询每个obj添加ondragstart事件，给oEvent的dataTransfer对象执行setData()函数（给拖拽对象设置属性）
+	var oEvent=e||event;
+	var aObjs=this.getElementsByTagName(TagName);// 获取拖拽对象中的 标签
+	oEvent.dataTransfer.setData("title",aObjs.innerHTML);  //setData()方法 给 拖拽的对象设置“title”属性，属性值为 aObjs.innerHTML
+	oEvent.dataTransfer.setData("price",aObjs.innerHTML); //setData()方法 给 拖拽的对象设置“price”属性，属性值为 aObjs.innerHTML
+	oEvent.dataTransfer.setDragImage(this,0,0); // setDragImage()方法 控制拖动时鼠标在拖拽对象的副本中的位置。
+}
+
+obj.ondrag=function(e){ /*该事件函数为持续触发*/}
+obj.ondragend=function(e){ }
+
+
+
+
+obj2.ondragenter=function(){
+	//this.style.borderColor="red";
+}
+obj2.ondragover=function(e){
+	var oEvent=e||event;
+	oEvent.preventDefault();	//指定取消默认事件的动作
+}
+obj2.ondrop=function(e){
+	var oEvent=e||event;
+	var sTitle=oEvent.dataTransfer.getData("title");  //在ondrop事件的函数中，在事件函数的“oEvent”中获取当前拖放对象aLi的“title”和“price”属性
+	var sPrice=oEvent.dataTransfer.getData("price");
+}
+obj2.ondragleave=function(e){
+	var oEvent=e||event;
+}

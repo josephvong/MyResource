@@ -1,0 +1,11 @@
+*{zoom:1}/*兼容IE6，触发“haslayout”*/
+body,p,h1,h2,h3,h4,h5,h6,dl,dd{margin:0; font-size:12px;/* font-family:XX; */}
+ol,ul{list-style:none;padding:0;margin:0;}
+a{text-decoration:none;}
+img{border:none;}
+
+/*表单样式重置*/
+form{margin:0;}
+input{margin:0;padding:0;}
+select{margin:0;}
+textarea{margin:0; padding:0;resize:none; overflow:auto; outline:none;}

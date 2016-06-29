@@ -1,0 +1,17 @@
+oC.ondragenter=function(e){
+		var oEvent=e||event;
+	}
+
+oC.ondragover=function(e){
+		var oEvent=e||event;
+		oEvent.preventDefault();
+	}
+
+oC.ondrop=function(e){
+	var oEvent=e||event;
+	oEvent.preventDefault();
+	var fs=oEvent.dataTransfer.files;
+	var fd=new FileReader();
+	fd.readAsDataURL(fs[0]);
+	fd.onload=function(){}
+}
