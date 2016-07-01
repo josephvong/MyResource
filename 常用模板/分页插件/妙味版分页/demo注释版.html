@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+a{ margin:5px;}
+</style>
+<script>
+window.onload = function(){
+	
+	page({   //page()方法：参数为一个json，里面的元素为：
+	
+		id : 'div1',  //容器id
+		nowNum : 7,  //当前页
+		allNum : 10,  //总页数
+		callBack : function(now,all){  //分页标签的响应函数“callback()”
+		
+			alert('当前页:' + now +',总共页:'+all);
+		
+		}
+	
+	});
+	
+};
+
+//编辑page() 方法
+function page(opt){
+
+	if(!opt.id){return false};  //判断分页容器的存在
+	
+	var obj = document.getElementById(opt.id);  //若存在，获取容器
+	
+	var nowNum = opt.nowNum || 1; // 当前页的变量，并设置默认值为1
+	var allNum = opt.allNum || 5; // 总页数的变量，并设置默认值为5
+	var callBack = opt.callBack || function(){};  // 对分页标签生成后，当前页和总页数的响应函数
+	
+	//当 “当前页”值>4 且“总页数”>6时，由于第一页不会显示，因此必须添加“首页”连接
+	if( nowNum>=4 && allNum>=6 ){
+	
+		var oA = document.createElement('a'); 
+		oA.href = '#1';
+		oA.innerHTML = '首页'; 
+		obj.appendChild(oA);
+	
+	}
+	
+	if(nowNum>=2){ // 当“当前页”不为第一页时，添加“上一页”标签
+		var oA = document.createElement('a');
+		oA.href = '#' + (nowNum - 1);
+		oA.innerHTML = '上一页';
+		obj.appendChild(oA);
+	}
+	
+	//当总页 小于 5：
+	if(allNum<=5){
+		for(var i=1;i<=allNum;i++){
+			var oA = document.createElement('a'); //轮询创建a标签
+			oA.href = '#' + i; //每个a标签的href对应i
+			if(nowNum == i){
+				oA.innerHTML = i; //当前页 内容为 i
+			}
+			else{
+				oA.innerHTML = '['+ i +']'; //其他页的内容为[i]
+			}
+			obj.appendChild(oA);
+		}	
+	}
+	else{  //当多于5页时：
+	
+		for(var i=1;i<=5;i++){  
+			var oA = document.createElement('a');// 创建5个当前的显示页(a标签)
+			
+			// 当 “当前页”为1 or 2（头两页）时，需要进行特殊处理：
+			if(nowNum == 1 || nowNum == 2){
+				
+				oA.href = '#' + i;
+				if(nowNum == i){
+					oA.innerHTML = i;
+				}
+				else{
+					oA.innerHTML = '['+ i +']';
+				}
+				
+			}
+			 // 如果“当前页”值为最后两页时
+			else if( (allNum - nowNum) == 0 || (allNum - nowNum) == 1 ){
+			
+				oA.href = '#' + (allNum - 5 + i);  // 各个a标签的页码值为“总页数”-5(5个a标签显示)+i，i从1开始
+				
+				if((allNum - nowNum) == 0 && i==5){  // 当“当前页”为最后一页，且i为5（最后一个a标签的索引）时
+					oA.innerHTML = (allNum - 5 + i);
+				}
+				else if((allNum - nowNum) == 1 && i==4){// 当“当前页”为倒数第2页，且i为4（倒数第2个a标签的索引）时
+					oA.innerHTML = (allNum - 5 + i);
+				}
+				else{
+					oA.innerHTML = '['+ (allNum - 5 + i) +']'; // 其他a标签都有"[]"
+				}
+			
+			}
+			else{  // 当 “当前页” 在总页数的中间（任意个）时，此时总页数的最前和最后页均不出现在5个a标签中
+				oA.href = '#' + (nowNum - 3 + i); //此时每个a标签的href为 当前(第3个<中间>a标签)页的值(iNow)-3 + i， （i从1开始）
+				
+				if(i==3){
+					oA.innerHTML = (nowNum - 3 + i);
+				}
+				else{
+					oA.innerHTML = '['+ (nowNum - 3 + i) +']';
+				}
+			}
+			obj.appendChild(oA);
+			
+		}
+	
+	}
+	
+	if( (allNum - nowNum) >= 1 ){   //当“当前页”未到最后一页时（(allNum-nowNum)>=1）
+		var oA = document.createElement('a');
+		oA.href = '#' + (nowNum + 1);
+		oA.innerHTML = '下一页';
+		obj.appendChild(oA);
+	}
+	
+	if( (allNum - nowNum) >= 3 && allNum>=6 ){ //当总页数>6 且 当前页比总页数少多于3页（让最末页无法在第5个a标签中出现）
+	
+		var oA = document.createElement('a');
+		oA.href = '#' + allNum;
+		oA.innerHTML = '尾页';
+		obj.appendChild(oA);
+	
+	}
+//-----------------------上面的代码为生成分页	
+	
+	callBack(nowNum,allNum);  //对“当前页”和“总页数”的响应函数
+	
+	var aA = obj.getElementsByTagName('a');
+	
+	for(var i=0;i<aA.length;i++){
+		aA[i].onclick = function(){
+			
+			var nowNum = parseInt(this.getAttribute('href').substring(1)); //获取相对地址
+			
+			obj.innerHTML = ''; //清空分页容器内的所有内容
+			
+			page({  // 递归函数，执行自身 page() 函数 生成对应的页码标签
+			
+				id : opt.id,
+				nowNum : nowNum,
+				allNum : allNum,
+				callBack : callBack
+			
+			});
+			
+			return false;
+			
+		};
+	}
+
+}
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<!--<a href="#1">首页</a>
+	<a href="#3">上一页</a>
+	<a href="#2">[2]</a>
+	<a href="#3">[3]</a>
+	<a href="#4">4</a>
+	<a href="#5">[5]</a>
+	<a href="#6">[6]</a>
+	<a href="#5">下一页</a>
+	<a href="#10">尾页</a>-->
+	
+
+</div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+a{ margin:5px;}
+</style>
+<script>
+window.onload=function(){
+	page({
+		id:"div1",
+		nowNum:8,
+		allNum:20,
+		callBack: function(now,all){
+			alert("当前页为："+now+"，总页数为："+all);
+		}
+	})
+}
+
+function page(opt){
+	if (!opt.id){return false;}
+	var obj=document.getElementById(opt.id);
+	var nowNum=opt.nowNum||1;
+	var allNum=opt.allNum||5;
+	var callBack=opt.callBack || function(){};
+	
+//***********注： 本次分页只显示5个分页*********************//
+
+//--------part.2：此部分为判断“首页”/“前一页” 标签出现的情况
+	/*
+		“首页”/“前一页”出现在分页标签的前面，因此判断与生成的代码必须在分页标签代码前
+	*/
+	if (nowNum>=4 && allNum>=6) //“首页”标签的出现条件（在当前显示的五个标签页中，第一个标签的页码不为1和2）
+	{
+		var oA=document.createElement("a");
+		oA.href="#1"; 
+		oA.innerHTML="首页";
+		obj.appendChild(oA);
+	}
+
+	if (nowNum>=2)
+	{
+		var oA=document.createElement("a");
+		oA.href="#"+(nowNum-1); 
+		oA.innerHTML="前一页";
+		obj.appendChild(oA);
+	}
+//---------------第二部分代码完结 --------------------------
+	
+//------part.1 ：此部分为分页的页码显示（只显示五个页码标签）此部分先创建-------
+	/*
+		1. 判断总页码少于5个页码标签时的情况；
+		2. 判断总页码多于5个页码标签时的情况：
+			2.1 当“当前页”为头两页时； 2.2 当“当前页”为尾两页时；2.3 当“当前页”不为头尾页时（当前页必须显示在中间的页标签上）
+	*/
+	//当allNum<=5 时 （常规显示1-5页）
+	if (allNum<=5)
+	{
+		for (var i=1;i<=allNum ;i++ )
+		{
+			var oA=document.createElement("a");
+			oA.href="#"+i;
+			if (i==nowNum)
+			{
+				oA.innerHTML=nowNum;
+			}else{
+				oA.innerHTML="["+i+"]";
+			}
+			obj.appendChild(oA);
+		}
+	}else{  //如果allNum>5时
+		for (var i=1;i<=5 ;i++ )
+		{
+			var oA=document.createElement("a");
+			if (nowNum==1 || nowNum==2)
+			{
+				oA.href="#"+i;
+				if (i==nowNum){oA.innerHTML=i;}else{oA.innerHTML="["+i+"]";}
+				
+			}else if (allNum-nowNum==0 || allNum-nowNum==1)
+			{
+				oA.href="#"+(allNum-5+i);
+				if ((allNum-nowNum)==0 && i==5){
+					oA.innerHTML=(allNum-5+i);
+				}else if ((allNum-nowNum)==1 && i==4)
+				{
+					oA.innerHTML=(allNum-5+i);
+				}else{
+					oA.innerHTML="["+(allNum-5+i)+"]";
+				}
+			}else{//正常情况下，当前页若为最前两页和最后两页时，均出现在5个显示页的最中间
+				oA.href="#"+(nowNum-3+i);
+				if (i==3){  //当第3个<a>标签时，没有"[]"
+					oA.innerHTML=(nowNum-3+i);
+				}else{
+					oA.innerHTML="["+(nowNum-3+i)+"]";
+				}	
+			}
+			obj.appendChild(oA);
+		}
+	}
+//----------------分页显示代码结束-------------------------------
+
+//--------part.3：此部分为判断“尾页”/“后一页” 标签出现的情况
+	/*
+		“尾页”/“后一页”出现在分页标签的后面，因此判断与生成的代码必须在分页标签代码后
+	*/
+	if ((allNum-nowNum)>=1)
+	{
+		var oA=document.createElement("a");
+		oA.href="#"+(nowNum+1); 
+		oA.innerHTML="后一页";
+		obj.appendChild(oA);
+	}
+	
+	if (allNum-nowNum>=3 && allNum>=6) 
+	{
+		var oA=document.createElement("a");
+		oA.href="#"+allNum; 
+		oA.innerHTML="尾页";
+		obj.appendChild(oA);
+	}
+
+//-----part.4：完成所有标签创建之后判断是否有回调函数callback，有的话先执行callback
+	
+	callBack(nowNum,allNum); //callback回调函数的两个参数为“当前页”和“总页数”
+//------------------------------------------------------
+
+
+//-------part.5: 获取所有标签并添加点击事件（执行完回调函数后）------------------
+	var aA=obj.getElementsByTagName("a");
+	for (var i=0;i<aA.length ;i++ )
+	{
+		aA[i].onclick=function(){
+			//获取点击标签中的href所指向的页数值
+			var clickNum=parseInt(this.getAttribute("href").substring(1));
+			obj.innerHTML=""; //清空分页容器内容
+			page({
+				id:opt.id,
+				nowNum:clickNum,
+				allNum:allNum,
+				callBack:callBack
+			});
+			return false; //此处return false 为不让点击的页码值(#n)显示在url当中
+		}
+	}
+}
+</script>
+</head>
+
+<body>
+<div id="div1">
+<!--<a href="#1"> 1 </a>
+	<a href="#2">[2]</a>
+	<a href="#3">[3]</a>
+	<a href="#4">[4]</a>
+	<a href="#5">[5]</a>-->
+</div>
+</body>
+</html>

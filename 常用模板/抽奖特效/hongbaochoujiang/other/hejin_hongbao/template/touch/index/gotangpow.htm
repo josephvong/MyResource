@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><!--{eval echo stripslashes($angpow[wxtitle]);}--></title>
+	<meta contents="text/html; charset=$charset" http-equiv="contents-Type">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta contents="yes" name="apple-mobile-web-app-capable" />
+	<meta contents="black" name="apple-mobile-web-app-status-bar-style" />
+	<meta name="format-detection" contents="telephone=no" />
+	
+
+
+
+	<script type="text/javascript" src="{HEJIN_PATH}public/allimg/jquery-1.7.2.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{HEJIN_PATH}public/allimg/base.css" />
+	<script type="text/javascript" src="{HEJIN_PATH}public/allimg/base.js"></script>
+	<script type="text/javascript" src="{HEJIN_PATH}public/allimg/dialog.js"></script>
+    <script type="text/javascript" src="{HEJIN_PATH}public/allimg/jquery.pager.js"></script>
+    <script type="text/javascript" src="{HEJIN_PATH}public/allimg/jquery.query.js"></script>
+
+
+
+<script type="text/javascript">
+	
+</script>
+
+	
+    </head>
+    <script type="text/javascript">
+
+    	$(function(){
+   			if($lqjiner >= $dhje && !$havecash){
+   				$(".myCoupow img").attr("src","{HEJIN_PATH}public/allimg/drawCashColor.png");
+   				$(".myCoupow img").attr("onclick","drawCash();");
+   			}else{
+   				$(".myCoupow img").attr("src","{HEJIN_PATH}public/allimg/drawCash.png");
+   				$(".myCoupow img").attr("onclick","");
+   			}
+    		
+   		});
+   		function drawCash(){
+						$.get('{HEJIN_URL}&model=duihuan&aid=$angpow[id]&formhash={FORMHASH}', null, function (resulta) {
+									if(resulta=='ok'){
+										window.location.href='{HEJIN_URL}&model=mycash&aid=$angpow[id]{if $uuid}&uuid=$uuid{/if}';
+									}else{
+										alert(resulta);
+									}
+                        		}, 'text');
+   		}
+		
+		var imgUrl = "{HEJIN_PATH}{$angpow['icon']}";
+        var lineLink = "{if $jyyhinfo['hjhb_fxurl']==1}{HEJIN_URL}&model=angpow&aid={$angpow['id']}{else}{HEJIN_URL}&model=weixin&aid={$angpow[id]}{/if}";
+        var descContent = '<!--{eval echo stripslashes($angpow[wxtitle]);}-->';
+        var shareTitle = '<!--{eval echo stripslashes($angpow[wxtitle]);}-->';
+        var appid = '';
+         
+	    function onBridgeReady(){
+
+			WeixinJSBridge.call('showOptionMenu');
+		}
+		
+
+   			if (typeof WeixinJSBridge == "undefined"){
+   			    if( document.addEventListener ){
+   			        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+   			    }else if (document.attachEvent){
+   			        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+   			        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+   			    }
+   			}else{
+   			    onBridgeReady();
+   			}
+        function shareFriend() {
+            WeixinJSBridge.invoke('sendAppMessage',{
+                "appid": appid,
+                "img_url": imgUrl,
+                "img_width": "200",
+                "img_height": "200",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function(res) {
+                //_report('send_msg', res.err_msg);
+            })
+        }
+        function shareTimeline() {
+            WeixinJSBridge.invoke('shareTimeline',{
+                "img_url": imgUrl,
+                "img_width": "200",
+                "img_height": "200",
+                "link": lineLink,
+                "desc": descContent,
+                "title": shareTitle
+            }, function(res) {
+                   //_report('timeline', res.err_msg);
+            });
+        }
+        function shareWeibo() {
+            WeixinJSBridge.invoke('shareWeibo',{
+                "content": descContent,
+                "url": lineLink,
+            }, function(res) {
+                //_report('weibo', res.err_msg);
+            });
+        }
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.on('menu:share:appmessage', function(argv){
+                shareFriend();
+            });
+            WeixinJSBridge.on('menu:share:timeline', function(argv){
+                shareTimeline();
+            });
+            WeixinJSBridge.on('menu:share:weibo', function(argv){
+                shareWeibo();
+            });
+        }, false);
+	      
+    </script>
+    <style>
+    	body{
+    		width: 100%;
+    		height: 100%;
+    		border:0;
+    		margin:0;
+    		background-color: #f7f8f8;
+    		color:#949494;
+    	}
+    	.content{
+    		width: 100%;
+    		height: 100%;
+    		border:0;
+    		margin:0;
+    		background-color: #f7f8f8;
+    	}
+    	.top{
+	   		text-align: center;
+	   	}
+    	.top{
+    		width:100%;
+    		background-color:#efefef;
+    		-moz-box-shadow: 0px 3px 4px #c9caca;
+		    -webkit-box-shadow: 0px 3px 4px #c9caca;
+		    box-shadow: 0px 3px 4px #c9caca;
+		    /* border-bottom: 1px solid #c9caca; */
+		    padding:1% 0% 0 0%;
+    	}
+    	.top span{
+    		display: inline-block;
+    		height: 100%;
+    		width: 32%;
+    		font-size: 16px;
+    		color: #727171;
+    		padding:10px 0;
+    	}
+    	.triggle{
+    		margin:0;
+    		padding:0;
+    	}
+    	.triggle img{
+    		margin:0;
+    		padding:0;
+    		width:5%;
+    		padding-left:48%;
+    		vertical-align: top;
+    	}
+    	.myCoupow{
+    		margin:3% 0;
+    		background-color:#f5565a;
+    		padding:2% 10%;
+    	}
+    	.myCoupow span{
+			color: #fff;
+			line-height: 40px;
+			font-size: 20px;
+    	}
+    	.myCoupow img{
+    		padding:2% 0;
+    	}
+    	
+    	.coupowInfo{
+    		margin:5% 10%;
+    		height: 100%;
+    		padding-bottom:3%;
+    		border-bottom:1px dashed #949494;
+    	}
+    	.coupowInfo img{
+    		width: 12%;
+    		margin-right:2%;
+    		display:inline-block;
+    	}
+    	.coupowInfo span{
+    		vertical-align: top;
+    		display: inline-block;
+    		padding: 3%;
+    		font-size: 14px;
+    	}
+    	.coupowInfo font{
+    		color:#b30103;
+    		font-size: 20px;
+    	}
+    	.tips{
+    		font-size: 14px;
+    		margin:0% 11% 10% 11%;
+    		color:#f5565a;
+    	}
+    	.tips .title{
+    		font-size: 16px;
+    		font-weight: bold; 
+       	}
+   	</style>
+   <body>
+   <div style="display:none"><img src="{HEJIN_PATH}{$angpow['icon']}" height="1" width="1" /></div>
+		<div class="content">
+		
+			<div class="top">
+				<a href="{HEJIN_URL}&model=sendangpow&aid=$angpow[id]{if $uuid}&uuid=$uuid{/if}"><span>{lang hejin_hongbao:fachudhb}</span></a>
+				<span style="background-color: #f5565a;border-radius:5px;color:#fff">{lang hejin_hongbao:qiangddhb}</span>
+				<a href="{HEJIN_URL}&model=mycash&aid=$angpow[id]{if $uuid}&uuid=$uuid{/if}"><span>{$angpow[upname]}</span></a>
+			</div>
+			
+			<div class="triggle">
+				<img src="{HEJIN_PATH}public/allimg/triangle.png">
+			</div>
+			
+			<div class="myCoupow">
+				<div>
+					<span>{lang hejin_hongbao:wodehbze}</span>
+				</div>
+				<div>
+					<span style="font-size:30px ">$lqje</span>
+					<span>{lang hejin_hongbao:yuan}</span>
+					<img src="{HEJIN_PATH}public/allimg/drawCash.png" style="width: 40%;float: right;">
+				</div>
+			</div>
+			<!--{loop $lqlist $lqinfo}-->
+			<div class="coupowInfo">
+				
+				<span>{if $lqinfo['is_stat']}{lang hejin_hongbao:fxdhb}{else}{lang hejin_hongbao:qiangdao}{/if}<font><!--{eval echo sprintf("%.2f",$lqinfo['momey']/100);}--></font>{lang hejin_hongbao:yuan}</span>
+				<span style="float: right;font-size: 12px;"><!--{eval echo date('m-d H:i:s',$lqinfo['add_time']);}--></span>
+			</div>
+			<!--{/loop}-->
+			
+			<div class="tips">
+				<p class="title">{lang hejin_hongbao:duihuansm}</p>
+				<p>{lang hejin_hongbao:duihuana}{$angpow['upnumber']}{lang hejin_hongbao:duihuanb}{$angpow[upname]}</p>
+				<p>{lang hejin_hongbao:duihuane}</p>
+				<p>{lang hejin_hongbao:duihuanc}{$angpow['upnumber']}{lang hejin_hongbao:duihuand}</p>
+                {if $jyyhinfo['hjhb_duihuansm']}
+                	$jyyhinfo['hjhb_duihuansm']
+                {/if}
+			</div>
+			
+		</div>
+   </body>
+</html>

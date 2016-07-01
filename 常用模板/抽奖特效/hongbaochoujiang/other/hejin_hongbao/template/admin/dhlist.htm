@@ -1,0 +1,73 @@
+<link href="{HEJIN_PATH}public/admin/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.validation.min.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/admincp.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.tooltip.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.cookie.js"></script>
+<link href="{HEJIN_PATH}public/admin/css/skin_0.css" rel="stylesheet" type="text/css" id="cssfile2" />
+<script type="text/javascript">
+function submit_delete_batch(){
+    var items = '';
+    $('.checkitem:checked').each(function(){
+        items += this.value + ',';
+    });
+    if(items != '') {
+        items = items.substr(0, (items.length - 1));
+        submit_delete(items);
+    }  
+    else {
+        alert('{lang hejin_hongbao:clickok}');
+    }
+}
+</script>
+
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="h3" style="width:auto;"><!--{eval echo stripslashes($stnr['title']);}--> {lang hejin_hongbao:duihuanjl}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#ff0000">{lang hejin_hongbao:zongdhje}{$alllqje}{lang hejin_hongbao:yuan}</font></div>
+      <ul class="tab-base">
+        <li></li>
+      </ul>
+    </div>
+  </div>
+  
+  
+  <form id="list_form" method='post'>
+    <input id="class_id" name="class_id" type="hidden" />
+    <table class="table tb-type2">
+      <thead>
+        
+        <tr class="thead">
+          <th width="10%">ID</th>
+          <th width="20%">{lang hejin_hongbao:shoujihaob}</th>
+          <th width="15%">{lang hejin_hongbao:dhnamea}</th>
+		  <th width="20%">{lang hejin_hongbao:dhtime}</th>
+		  <th width="20%">{lang hejin_hongbao:caozuo}</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      <!--{loop $shareues $stinfo}-->
+                        <tr class="hover edit">
+		  <td>$stinfo['id']</td>
+		  <td><!--{eval $user = C::t('#hejin_hongbao#hejin_users')->fetch_by_id($stinfo['uid']);}--><!--{eval echo $user['telphone'];}--></td>
+		  <td>{lang hejin_hongbao:jiazhi}{$stnr['upnumber']}{lang hejin_hongbao:yuan}<!--{eval echo stripslashes($stnr['upname']);}--></td>
+		  <td><!--{eval echo date('Y-m-d H:i:s',$stinfo['add_time']);}--></td>
+		  <td>{if $stinfo['is_sy']}<font color="#FF0000">{lang hejin_hongbao:yishiyong}</font>{else}<a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao&model=bjsy&cid=$stinfo['id']&aid=$stnr['id']&formhash={FORMHASH}" onclick="return confirm(&quot;{lang hejin_hongbao:yishiyongts}&quot;);">{lang hejin_hongbao:syqueren}</a>{/if}</td>
+		  
+		  
+        </tr>
+         <!--{/loop}-->                   
+                
+                      </tbody>
+            <tfoot>
+        <tr class="tfoot">
+          <td>
+          </td>
+          <td id="batchAction" colspan="15">
+            </td>
+        </tr>
+      </tfoot>
+          </table>
+  </form>
+</div>

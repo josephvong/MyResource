@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><!--{eval echo stripslashes($angpow['wxtitle']);}--></title>
+    <meta http-equiv="pragma" co ntent="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="content-type" content="text/html; charset=$charset" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,"  />
+	<meta content="telephone=no" name="format-detection" />
+	<meta content="email=no" name="format-detection" />
+	
+	<style type="text/css">
+		body{
+			background-color: #fff1a0;
+			padding:0;
+			margin:0;
+			
+		}
+		.qrCode, .words{
+			text-align: center;
+		}
+		.qrCode img{
+			width: 30%;
+			margin-top:5%;
+		}
+		.words{
+			margin: 5% 5% 0px 5%;
+			font-size: 20px;
+			color:#666;
+			font-weight: bold;
+		}
+		.top img{
+			width: 20%;
+			padding-left:70%;
+			padding-top:5%;
+		}
+		.middle img{
+			width: 20%;
+			padding-left:5%;
+			padding-top:6%;
+		}
+		.bottom img{
+			width: 13%;
+			padding-left:15%;
+		}
+		.cloud img{
+			position: absolute;
+			bottom: 0;
+			z-index:-999;
+			width: 100%;
+		}
+	</style>
+  </head>
+  
+  <body>
+  	
+  	
+  	
+  	<div class="qrCode">
+  		<img alt="" src="http://qr.liantu.com/api.php?bg=FFF1A0&fg=E76C6C&gc=222222&el=l&w=200&m=1&text={HEJIN_URL}%26model=angpow%26aid=$angpow['id']">
+  	</div>
+  <div class="words">
+  		<span>{lang hejin_hongbao:pcurlts}</span>
+  	</div>	
+  	<div class="cloud">
+		<img alt="" src="{HEJIN_PATH}public/allimg/cloudBottom.png">
+  	</div>
+  </body>
+</html>

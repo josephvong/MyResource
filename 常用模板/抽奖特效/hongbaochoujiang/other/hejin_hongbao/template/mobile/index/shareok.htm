@@ -1,0 +1,21 @@
+	<script type="text/javascript" src="{HEJIN_PATH}public/allimg/jquery-1.7.2.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{HEJIN_PATH}public/allimg/base.css" />
+	<script type="text/javascript" src="{HEJIN_PATH}public/allimg/base.js"></script>
+
+<script>
+	$.get('{HEJIN_URL}&model=upclick&sid={$sharees[id]}&formhash={FORMHASH}', null, function (resulta) {
+									if(resulta=='ok'){
+										{if $jyyhinfo['hjhb_fxurl']==1}
+											window.location.href='{HEJIN_URL}&model=angpow&aid={$angpow[id]}';
+										{else}
+											window.location.href='{HEJIN_URL}&model=weixin&aid={$angpow[id]}';
+										{/if}
+									}else{
+										{if $jyyhinfo['hjhb_fxurl']==1}
+											window.location.href='{HEJIN_URL}&model=angpow&aid={$angpow[id]}';
+										{else}
+											window.location.href='{HEJIN_URL}&model=weixin&aid={$angpow[id]}';
+										{/if}
+									}
+                        		}, 'text');
+</script>

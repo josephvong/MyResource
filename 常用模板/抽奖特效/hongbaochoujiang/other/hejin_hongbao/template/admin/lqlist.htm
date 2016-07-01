@@ -1,0 +1,73 @@
+<link href="{HEJIN_PATH}public/admin/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.validation.min.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/admincp.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.tooltip.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.cookie.js"></script>
+<link href="{HEJIN_PATH}public/admin/css/skin_0.css" rel="stylesheet" type="text/css" id="cssfile2" />
+<script type="text/javascript">
+function submit_delete_batch(){
+    var items = '';
+    $('.checkitem:checked').each(function(){
+        items += this.value + ',';
+    });
+    if(items != '') {
+        items = items.substr(0, (items.length - 1));
+        submit_delete(items);
+    }  
+    else {
+        alert('{lang hejin_hongbao:clickok}');
+    }
+}
+</script>
+
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="h3" style="width:auto;"><!--{eval echo stripslashes($stnr['title']);}--> {lang hejin_hongbao:linhbyh}</div>
+      <ul class="tab-base">
+        <li></li>
+      </ul>
+    </div>
+  </div>
+  
+  
+  <form id="list_form" method='post'>
+    <input id="class_id" name="class_id" type="hidden" />
+    <table class="table tb-type2">
+      <thead>
+        
+        <tr class="thead">
+          <th width="10%">{lang hejin_hongbao:yonghu}ID</th>
+          <th width="20%">{lang hejin_hongbao:shoujihaob}</th>
+          <th width="15%">{lang hejin_hongbao:linquzje}</th>
+		  <th width="20%">{lang hejin_hongbao:duihuanzt}</th>
+		  <th width="20%">{lang hejin_hongbao:xianyouje}</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      <!--{loop $lquseres $lquser}-->
+                        <tr class="hover edit">
+		  <td>$lquser['uid']</td>
+		  <td><!--{eval echo stripslashes($lquser['telphone']);}--></td>
+		  <td><font color="#FF0000">$lquser['momey']</font></td>
+		  <td><!--{eval $casher = C::t('#hejin_hongbao#hjhb_cashes')->fetch_all_uaid(intval($lquser['uid']),$aid);}--><!--{eval $dunub = count($casher);}-->{if $dunub}<font color="#FF0000">{lang hejin_hongbao:yiduihuana}</font>{else}{lang hejin_hongbao:weiduihuan}{/if}</td>
+		  <td>{if $dunub}<!--{eval echo $lquser['momey']-$stnr['upnumber']}-->{else}<font color="#FF0000">{$lquser['momey']}</font>{/if}</td>
+		  
+		  
+        </tr>
+         <!--{/loop}-->                   
+                
+                      </tbody>
+            <tfoot>
+        <tr class="tfoot">
+          <td>
+          </td>
+          <td id="batchAction" colspan="15">
+            </td>
+        </tr>
+      </tfoot>
+          </table>
+  </form>
+</div>

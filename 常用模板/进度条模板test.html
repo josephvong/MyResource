@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+*{margin:0;padding:0;}
+#cover{position:absolute;width:100%; height:100%;background:#676B6F;z-Index:2; opacity:0.5;}
+#cont{position:absolute; width:300px; height:40px; top:50%; left:50%; border:1px solid #C8C8C8; margin-left:-150px; margin-top:-20px; z-Index:3;}
+#progressBox{width:300px; height:40px; background: white; position:relative}
+#progressBar{position:absolute; left:0;top:0; z-index:2; height:40px;width:100%;line-height:40px; color:white; text-align:center; font-size:20px; font-weight:bold; font-family:Georgia; clip:rect(0px,0px,40px,0px);background:#00A1F5}
+#progressText{position:absolute; left:0; top:0; z-Index:1; width:100%; height:40px; line-height:40px; color:black; text-align:center; font-size:20px; font-weight:bold;font-family:Georgia;}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<script src="C:\Users\josephh.Johndoe-PC\Desktop\个性化js库\myJS0113.js"></script>
+<script>
+window.onload=function(){
+	ProcessBar(50);
+}
+
+function ProcessBar(all,callback){
+	var iNow=0;
+	var a=parseInt(100/all); //  100/13
+	var b=100%all;
+
+	var timer=setInterval(function(){
+		if (iNow==all*a)
+		{
+			clearInterval(timer);
+			progressFn(100);
+			//progressFn(iNow);
+		}else{
+			iNow+=a;
+			progressFn(iNow);
+		}
+	},300);
+
+	//创建进度条函数， 参数“cent”为 进度条的百分比（整数）
+	function progressFn(cent){
+		//获取进度条的元素
+		var oDiv=document.getElementById("progressBox");
+		var oBar=document.getElementById("progressBar");
+		var oTxt=document.getElementById("progressText");
+
+		var allWidth=300;//parseInt(getStyle(oDiv,"width")); //获取进度条的总长度（用“getStyle()方法”）
+		
+		oBar.innerHTML=cent+"%"; //将oBar和oTxt内的内容对应当前的百分比数值(cent+%)
+		oTxt.innerHTML=cent+"%";
+		
+		//对oBar的样式属性“clip”来
+		oBar.style.clip="rect(0px,"+cent/100*allWidth+"px,40px,0px)";
+	}
+}
+
+//<div id="cover"></div>
+
+</script>
+</head>
+
+<body>
+<div id="cover"></div>
+<div id="cont">
+<div id="progressBox">
+		<div id="progressBar">0%</div>
+		<div id="progressText">0%</div>
+	</div>
+</div>
+	
+
+</body>
+</html>

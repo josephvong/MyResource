@@ -1,0 +1,95 @@
+<link href="{HEJIN_PATH}public/admin/css/style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.validation.min.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/admincp.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.tooltip.js"></script>
+<script type="text/javascript" src="{HEJIN_PATH}public/admin/js/jquery.cookie.js"></script>
+<link href="{HEJIN_PATH}public/admin/css/skin_0.css" rel="stylesheet" type="text/css" id="cssfile2" />
+<script type="text/javascript">
+function submit_delete_batch(){
+    var items = '';
+    $('.checkitem:checked').each(function(){
+        items += this.value + ',';
+    });
+    if(items != '') {
+        items = items.substr(0, (items.length - 1));
+        submit_delete(items);
+    }  
+    else {
+        alert('{lang hejin_hongbao:clickok}');
+    }
+}
+</script>
+
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="h3" style="width:auto;">{lang hejin_hongbao:huodonggl}</div>
+      <ul class="tab-base">
+        <li><a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao" class="current"><span>{lang hejin_hongbao:huodonglb}</span></a></li>
+		<li><a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao&model=addangpow"><span>{lang hejin_hongbao:addhd}</span></a></li>
+		<li><span style="color:#F00">{lang hejin_hongbao:gzurl}http://<strong>{lang hejin_hongbao:yuming}</strong>/plugin.php?id=hejin_hongbao&model=angpow&aid=<strong>{lang hejin_hongbao:huodongid}</strong>&isgz=1</span></li>
+		
+      </ul>
+    </div>
+  </div>
+  
+  
+  <form id="list_form" method='post'>
+    <input id="class_id" name="class_id" type="hidden" />
+    <table class="table tb-type2">
+      <thead>
+        
+        <tr class="thead">
+          <th width="5%">ID</th>
+          <th width="15%">{lang hejin_hongbao:sharemc}</th>
+          <th width="9%">{lang hejin_hongbao:dhname}</th>
+          <th width="9%">{lang hejin_hongbao:hdzjine}</th>
+          <th width="9%">{lang hejin_hongbao:mrmrhbsj}</th>
+		  <th width="9%">{lang hejin_hongbao:zsshares}</th>
+          <th width="9%">{lang hejin_hongbao:huojiang}</th>
+		  <th width="10%">{lang hejin_hongbao:allyonghu}</th>
+          <th width="10%">{lang hejin_hongbao:hdzhuangt}</th>
+		  <th width="5%">{lang hejin_hongbao:zhuangtai}</th>
+		  <th width="10%" class="align-center">{lang hejin_hongbao:caozuo}</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+      <!--{loop $stlists $stinfo}-->
+                        <tr class="hover edit">
+		  <td>$stinfo['id']</td>
+		  <td><!--{eval echo stripslashes($stinfo['title']);}--></td>
+		  <td><!--{eval echo stripslashes($stinfo['upname']);}--></td>
+		  <td>$stinfo['allmomey']{lang hejin_hongbao:yuan}</td>
+		  <td><!--{eval echo sprintf("%.2f",$stinfo['sjupnub']/100);}-->{lang hejin_hongbao:yuan}-<!--{eval echo sprintf("%.2f",$stinfo['sjdownnub']/100);}-->{lang hejin_hongbao:yuan}</td>
+          <!--{eval $sharees = C::t('#hejin_hongbao#hjhb_shares')->fetch_all_aid($stinfo['id']);}-->
+          <!--{eval $shareuser = count($sharees);}-->
+		  <td><a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao&model=shareuser&aid=$stinfo['id']">{lang hejin_hongbao:shareuser}</a> (<!--{eval echo $shareuser;}-->)</td>
+          <!--{eval $cashesa = C::t('#hejin_hongbao#hjhb_cashes')->fetch_all_aid($stinfo['id']);}-->
+          <!--{eval $cashcounta = count($cashesa);}-->
+		  <td><a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao&model=duihuan&aid=$stinfo['id']">{lang hejin_hongbao:hjguanli}</a> (<!--{eval echo $cashcounta;}-->)</td>
+		  <td><a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao&model=hbuser&aid=$stinfo['id']">{lang hejin_hongbao:linhbyh}</a></td>
+		  <td>{if $stinfo['start_time'] < time()}{if $stinfo['end_time']>time()}{lang hejin_hongbao:jinxingz}{else}<font color="#990000">{lang hejin_hongbao:yijiesa}</font>{/if}{else}<font color="#990000">{lang hejin_hongbao:weikais}</font>{/if}</td>
+         
+		  <td>{if $stinfo['is_qiyong']==1}{lang hejin_hongbao:qiyong}{else}<font color="#990000">{lang hejin_hongbao:guanbi}</font>{/if}</td>
+		  <td class='align-center'>
+		  	
+		  	<a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao&model=edit&aid=$stinfo['id']">{lang hejin_hongbao:bianji}</a> &nbsp;&nbsp;
+		  	<a href="$SELF?action=plugins&identifier=hejin_hongbao&pmod=hongbao&model=del&aid=$stinfo['id']&formhash={FORMHASH}" onclick="return confirm(&quot;{lang hejin_hongbao:shanchuts}&quot;);">{lang hejin_hongbao:shanchu}</a>
+		  </td>
+        </tr>
+         <!--{/loop}-->                   
+                
+                      </tbody>
+            <tfoot>
+        <tr class="tfoot">
+          <td>
+          </td>
+          <td id="batchAction" colspan="15">
+            <div class="pagination"><ul>$page_string</ul></div></td>
+        </tr>
+      </tfoot>
+          </table>
+  </form>
+</div>

@@ -1,0 +1,1347 @@
+@charset "utf-8";
+/*!
+* @author 禾今尚品 
+* @original author Lijian
+* @version v 1.0 2014/7/24 11:49:00 heruoyu
+----------------------------------------------------------
+文档大纲
+-----------------------------------------------------------
+一reset初始化
+
+二common通用
+三UI界面
+  1、mwm-list-  通用列表
+  2、mwm-form- 表单
+  3、mwm-tabs-  tab栏
+
+  4、mwm-pager-  页码
+  5、mwm-dialog-  对话框
+
+  6、mwm-table-  表格
+  7、mwm-search-  搜索容器
+  
+四hack兼容性 
+
+标准色:#ff9900
+hover颜色:#FF6600
+-----------------------------------------------------------
+*/
+
+/* 初始化start reset 修改为系统默认的属性*/
+html, body, div, dl, dt, dd, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td, article, aside, dialog, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video, details, summary {
+	margin: 0 auto;
+	padding: 0;
+}
+
+ul{margin:0;padding:0}
+/*块级元素显示*/
+section, article, aside, header, footer, nav, dialog, figure {
+	display: block;
+}
+/*主要是去掉前面的列表序列*/
+ol, ul {
+	list-style: none;
+}
+/*表格的样式固定不合并 无间距*/
+table {
+	border-collapse: separate;
+	border-spacing:0;
+}
+/* ie bug：th 不继承 text-align */
+th {
+	text-align: center;
+}
+/*表单设置*/
+button, input, select, textarea {
+	font-family: inherit;
+	font-size: 100%;
+}
+/*把插入的引号设为固定样式*/
+q:before, q:after, blockquote:before, blockquote:after {
+	content: "";
+}
+/*设置标题的字体大小*/
+h1 {
+	font-size: 16px;
+}
+h2 {
+	font-size: 14px;
+}
+h3 {
+	font-size: 12px;
+}
+h4, h5, h6 {
+	font-size: 100%;
+}
+/*鼠标悬浮 无外边框*/
+:focus {
+	outline: 0;
+}
+/* end reset */
+
+/* start common */
+/*body设置字体颜色灰色*/
+body {
+	font: 12px/1.6em Microsoft YaHei, sans-serif;
+	color: #ff9900;
+}
+/*link 去掉下划线  确定颜色*/
+a,a:visited,a:hover,a:active{
+	text-decoration: none;
+	color: #ff9900;
+}
+/*鼠标滑过链接时的的颜色*/
+a:hover {
+	color: #FF6600;
+}
+/*鼠标变成手*/
+a span, form label, ul, li, input .button, .lispan, .button-color input, .button-search input {
+	cursor: pointer;
+}
+.button-color input.on,.button-color input.hover {
+	background-color: #ff9900;
+}
+/*display*/
+.block, #page .block {
+	display: block;
+}
+.none, #page .none {
+	display: none;
+}
+.hidden, #page .hidden {
+	visibility: hidden;
+}
+.inlineblock, .list-loading-min {
+	display: inline-block;
+}
+.inlineblock, .list-loading-min {
+*display:inline;
+}
+/*float浮动*/
+.fll, #page .fll {
+	float: left;
+}
+.flr, #page .flr {
+	float: right;
+}
+.fln, #page .fln {
+	float: none;
+}
+/*clear*/
+.clearfix, .fix, .fix, #header, #content, #footer, .header-i, .content-i, .footer-i, .s-content, .fieldset .field-col, .ui-tabs-nav, .field-actions, .fieldset-one, .s-search-global, .s-style-1 .s-content, .list-1 .item-i, .s-style-1-header, .list-common .item-content, .field-conditions-1, .ui-dialog-content-i, .list-common .item-spaceList, .commentItem-i, .list-common .item-photo, .list-common .item-attach, .list-common .item-text, .ui-dialog-footer, .yrating, .grating, .srating, .relaChain-panel {
+	display: inline-block;
+}
+.clearfix, .fix, .fix, #header, #content, #footer, .header-i, .content-i, .footer-i, .s-content, .fieldset .field-col, .ui-tabs-nav, .field-actions, .fieldset-one, .s-search-global, .s-style-1 .s-content, .list-1 .item-i, .s-style-1-header, #mainPanel, .list-common .item-content, .field-conditions-1, .ui-dialog-content-i, .list-common .item-spaceList, .commentItem-i, .list-common .item-photo, .list-common .item-attach, .list-common .item-text, .ui-dialog-footer, .yrating, .grating, .srating, .relaChain-panel {
+	display: block;
+}
+.clear, .clearfix:after, .fix:after, .fix:after, #header:after, #content:after, #footer:after, .header-i:after, .content-i:after, .footer-i:after, .s-content:after, .fieldset .field-col:after, .ui-tabs-nav:after, .field-actions:after, .fieldset-one:after, .s-search-global:after, .s-style-1 .s-content:after, .list-1 .item-i:after, .s-style-1-header:after, .list-common .item-content:after, .field-conditions-1:after, .ui-dialog-content-i:after, .list-common .item-spaceList:after, .commentItem-i:after, .list-common .item-photo:after, .list-common .item-attach:after, .list-common .item-text:after, .ui-dialog-footer:after, .yrating:after, .grating:after, .srating:after, .relaChain-panel:after {
+	display: block;
+	visibility: hidden;
+	overflow: hidden;
+	clear: both;
+	height: 0;
+	content: "\20";
+}
+/*text 文本朝向*/
+.tal {
+	text-align: left;
+}
+.tac {
+	text-align: center;
+}
+.tar {
+	text-align: right;
+}
+/*font*/
+.font-1 {
+	font: 12px/1.5em Microsoft YaHei, sans-serif;
+	color: #333333;
+}
+.font-bold {
+	font-weight: bold;
+}
+.font-del {
+	text-decoration: line-through;
+}
+/*允许单词换行*/
+.font-break, .commentItem .cmtContent, .list-common .item-text, .post {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+/*变手*/
+.pointer {
+	cursor: pointer;
+}
+/*字体大小*/
+.fs-14 {
+	font-size: 14px;
+}
+.fs-16 {
+	font-size: 16px;
+}
+/*禁止文字自动换行*/
+.nowrap {
+	white-space: nowrap;
+}
+/*下面属性根据需要设置*/
+/*width height*/
+/*margin padding*/
+/*border*/
+/*color*/
+/*background*/
+/*icon*/
+/*table*/
+table {
+	font: 12px/1.5em Microsoft YaHei, sans-serif;
+	color: #333333;
+	clear: both
+}
+/* end common */
+
+/*2、表格------start*/
+
+/*通用通栏表格列表*/
+/*表格长度设置*/
+.mwm-table-undefine {
+	width: 88%;
+}
+
+
+
+/*奖品展示表格的配置*/
+.mwm-table-show-award {
+	
+}
+.mwm-table-show-award td,.mwm-table-show-award th{
+	width: 250px;
+}
+/*每日数量统计表格的配置*/
+.mwm-table-show-count {
+}
+.mwm-table-show-count td,.mwm-table-show-count th{
+	width: 400px;
+}
+/*虚拟奖品表格的配置*/
+.mwm-table-award-virtual{
+}
+.mwm-table-award-virtual td,.mwm-table-award-virtual th{
+	width: 250px;
+}
+
+
+
+
+.mwm-table-must {
+	clear:both;
+	border-collapse: collapse;
+	border-spacing: 0;
+    padding:10px;
+	background: #ffffff;
+}
+
+
+#search .mwm-table-must{
+	clear:both;
+	border-collapse: collapse;
+	border-spacing: 0;
+    padding:10px;
+	background: #ffffff;
+	height: 219px; overflow: auto;
+} 
+
+.mwm-table-must table {
+	border-top: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+}
+.mwm-table-must th {
+	text-align: center;
+	font-weight: bold;
+	background: #f2f2f2;
+	color: #333333;
+}
+.mwm-table-must tr {
+	text-align: center;
+	color: #333333;
+}
+.mwm-table-must .action a:hover, .ui-tree .action a:hover {
+	text-decoration: underline;
+}
+.mwm-table-must td,.mwm-table-must th {
+	padding: 12px 0px;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+}
+.mwm-table-must td.num {
+	text-align: center;
+}
+
+.mwm-table-must tr.on,.mwm-table-must tr.hover{
+	background: #f2f2f2;
+}
+/*操作设置*/
+.mwm-table-must .moreAction {
+	float: left;
+	padding: 12px 21px
+}
+.mwm-table-must .moreAction ul {
+	float: left;
+	display: block;
+	margin: 0 auto;
+	text-align: center
+}
+.mwm-table-must .moreAction ul li {
+	float: left;
+	margin-left: 5px;
+}
+/* end table */
+
+
+
+/*3、表单-------start*/
+/*输入框内的字体设置*/
+button, input, select, textarea {
+	color: #333333;
+	vertical-align: middle;
+}
+/*通用表单块*/
+.mwm-form-horiz{
+	background-color:#f2f2f2;
+}
+.mwm-form-horiz ul {
+	line-height: 50x;
+	color: #333333;
+	float: left;
+	width:100%;
+	border-bottom:1px solid #ccc;
+}
+.mwm-form-horiz .mwm-button-color{
+	float:right
+	}
+/*后面的星、女等的样式*/
+.mwm-form-vert input.text, .mwm-form-vert .password, .mwm-form-vert .radio, .mwm-form-vert .checkbox, .mwm-form-vert .select, .mwm-form-vert .multiple, .mwm-form-vert .textarea {
+	float: left;
+	margin-right: 5px;
+}
+.mwm-form-vert .field-textarea{
+	margin-left:0px;
+	margin-top:18px;
+	} 
+/*通用表单的间距控制*/
+.mwm-form-horiz input.text, .mwm-form-horiz .password, .mwm-form-horiz .radio, .mwm-form-horiz .checkbox, .mwm-form-horiz .select, .mwm-form-horiz .multiple {
+	float: left;
+}
+.mwm-form-horiz li {
+	float: left;
+	margin:14px 10px 10px 10px;
+}
+/*左边的label*/
+.mwm-form-horiz label {
+	width:50px;
+    inline-height:50px;
+	height:25px;
+	cursor: pointer;
+}
+.mwm-form-horiz .label {
+	
+	width:75px;
+	height:25px;
+	line-height:25px;
+	float: left;
+	text-align: right
+}
+/*字段*/
+.mwm-form-horiz .field {
+	float: left;
+	 line-height: 25px;
+}
+.mwm-form-horiz .radio, .mwm-form-horiz .checkbox {
+	white-space: nowrap;
+}
+.mwm-form-horiz .radio input, .mwm-form-horiz .checkbox input {
+}
+/*表单元素*/
+.mwm-form-horiz input.text, .mwm-form-horiz input.password {
+	width: 120px;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	border-color: #ccc #ccc #ccc #ccc;
+	
+}
+.mwm-form-horiz .radio input, .mwm-form-horiz .checkbox input {
+	margin-right: 3px;
+	vertical-align: middle;
+}
+.mwm-form-horiz .select {
+	height: 25px;
+	width: auto;
+	padding: 1px 2px 2px;
+	border: 1px solid #ccc;
+	border-color: #ccc #ccc #ccc #ccc;
+	background: #ffffff;
+*margin-top:1px;
+}
+.mwm-form-horiz .select:hover, .mwm-form-horiz .password:hover, .mwm-form-horiz .select:focus, .mwm-form-horiz input.text:hover {
+	border: 1px solid #ff9900;
+	-moz-box-shadow: 0 0 4px rgba(82,168,236,.7);
+	-webkit-box-shadow: 0 0 4px rgba(82,168,236,.7);
+}
+.mwm-form .search-input {
+	float: left;
+	margin: 10px 0px 10px 10px
+}
+.mwm-form .search-input input.text:hover {
+	border: 4px solid #ff9900;
+}
+/*表单元素长度*/
+.mwm-form input.search-long {
+	width: 601px;
+	height: 39px;
+	border: 4px solid #ff9900;
+}
+/*必填的**/
+.mwm-form-horiz .label .required {
+	margin-right: 5px;
+	color: #ff9900;
+}
+
+/*必填的**/
+.mwm-form-horiz .tip-link{
+	
+	float:left;
+	height:25px;
+	line-height:25px;
+    margin-left:5px;
+	}
+.label .required {
+	margin-right: 5px;
+	color: #ff9900;
+}
+.mwm-form-horiz .tip-required {
+	margin-left:5px;
+	height:25px;
+	line-height:25px;
+	float: left;
+	width:inherit;
+	color:#ff9900;
+}
+.mwm-form .onShow, .fieldset .onFocus, .fieldset .onError, .fieldset .onCorrect, .fieldset .onLoad, #autotip {
+	max-width: 250px;
+	float: left;
+	padding: 0 6px 0 20px;
+	margin-left: 5px;
+	line-height: 18px;
+	color: #ff9900;
+}
+.mwm-form .field-uplodify-one {
+	float: left;
+	padding-top: 10px
+}
+.mwm-form .field-uplodify-one .fileStatus {
+	float: left;
+	width: 176px;
+	height: 25px;
+	overflow: hidden;
+	padding: 0 5px;
+	margin: 2px 5px 0 0;
+	white-space: nowrap;
+	border: 1px solid #e0e0e0;
+	color: #bfbfbf;
+	background: #ffffff;
+}
+.mwm-form .field-uplodify-one .fileObject {
+	float: left;
+	width: 46px;
+	height: 24px;
+	margin-right: 5px;
+	overflow: hidden;
+}
+.mwm-form .field-uplodify-one .fileObject input {
+	display: none;
+}
+.mwm-form .field-uplodify-one .fileImg {
+	display: none;
+	clear: both;
+	width: 178px;
+	height: 178px;
+	padding: 8px 4px;
+	border: 1px solid #ccc;
+	text-align: center;
+	background: #ffffff;
+	overflow: hidden;
+}
+/* end form */
+
+/*按钮*/
+/* color、彩色 gray、灰色 search、长条搜索*/
+.mwm-button-color {
+	float: left;
+	padding: 10px
+}
+.mwm-button-color a,.mwm-button-color a:visited{
+	display: block;
+	width: 102px;
+	height: 32px;
+	background-color: #ff9900;
+	border: 0px;
+	color: #ffffff;
+	border-radius: 5px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 32px;
+}
+.mwm-button-color a:hover,.mwm-button-color a:active {
+	background-color: #FF6600;
+	color:#fff;
+}
+.mwm-button-color input {
+	width: 102px;
+	height: 32px;
+	background-color: #ff9900;
+	border: 0px;
+	color: #ffffff;
+	border-radius: 5px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 32px;
+}
+.mwm-button-color input.on,.mwm-button-color input.hover {
+	background-color: #ff9900;
+	color: #999;
+}
+
+.mwm-button-gray {
+	float: left;
+	padding: 10px
+}
+.mwm-button-gray a,.mwm-button-gray a:visited {
+	display: block;
+	width: 102px;
+	height: 32px;
+	background-color: #ccc;
+	border: 0px;
+	color: #777;
+	border-radius: 5px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 32px;
+}
+.mwm-button-gray a:hover,.mwm-button-gray a:active {
+	background-color: #ddd;
+	color: #777;
+}
+.mwm-button-search {
+	float: left;
+	height: 37px;
+	line-height: 37px;
+	font-size: 18px;
+	margin: 10px 10px 10px 0px
+}
+.mwm-button-search input {
+	width: 100px;
+	height: 39px;
+	background-color: #ff9900;
+	border: 0px;
+	color: ffffff;
+}
+
+
+
+
+/* 4、表单（竖向） */
+/* mwm-form表示最这个应用的是form的格式
+
+   下面的vert表示样式是竖向的
+*/
+/*字体垂直居中*/
+.mwm-form-vert ul {
+	line-height: 50px;
+	color: #333333;
+	padding:16px 25px 0px 25px;
+}
+/*后面的星、女等的样式*/
+.mwm-form-vert input.text, .mwm-form-vert .password, .mwm-form-vert .radio, .mwm-form-vert .checkbox, .mwm-form-vert .select, .mwm-form-vert .multiple, .mwm-form-vert .textarea {
+	float: left;
+	margin-right: 5px;
+}
+/*单列表单元素*/
+.mwm-form-vert li {
+	clear: both;
+	float: left;
+	_float: none;
+	width: 100%;
+}
+.mwm-form-vert .mwm-button-color{
+	padding:0px;
+	margin:0px;
+	margin-left:80px;
+	margin-top:10px;
+	}
+/*左边的label*/
+.mwm-form-vert label {
+	cursor: pointer;
+}
+.mwm-form-vert .label {
+	float: left;
+	width: 80px;
+	text-align: left;
+}
+/*表单元素样式设置*/
+.mwm-form-vert input.text, .mwm-form-vert input.password {
+	width: 120px;
+	border: 1px solid #ccc;
+	border-color: #ccc #ccc #ccc #ccc;
+	padding: 7px 7px 6px;
+	margin: 9px 0px;
+}
+/*????*/
+.mwm-form-vert .radio, .mwm-form-vert .checkbox {
+	white-space: nowrap;
+}
+/*调整单选 多选的对其问题*/
+.mwm-form-vert .radio input, .mwm-form-vert .checkbox input {
+	margin-right: 3px;
+	vertical-align: text-bottom;
+}
+.mwm-form-vert .select {
+	margin-top: 10px;
+	height: 25px;
+	width: auto;
+	padding: 1px 2px 2px;
+	border: 1px solid #ccc;
+	border-color: #ccc #ccc #ccc #ccc;
+	background: #ffffff;
+}
+.mwm-form-vert .multiple {
+	width: 215px;
+	border: 1px solid #ccc;
+}
+.mwm-form-vert .textarea {
+	overflow: auto;
+	overflow-x: hidden;
+	resize: none;
+	width: 300px;
+	height: 95px;
+	padding: 3px;
+	border: 1px solid #ccc;
+	margin: 18px 0 0;
+}
+/*表单mouseover或者是input的时候的变化*/
+.mwm-form-vert .select:hover, .mwm-form-vert .select:focus, .mwm-form-vert input.text:hover, .mwm-form-vert input.password:hover, .mwm-form-vert .textarea:hover {
+	border: 1px solid #FF9900;
+	-moz-box-shadow: 0 0 4px rgba(82,168,236,.7);
+	-webkit-box-shadow: 0 0 4px rgba(82,168,236,.7);
+}
+/*表单元素长度*/
+.mwm-form-vert input.mini {
+	width: 50px;
+	text-align: center;
+}
+.mwm-form-vert input.short {
+	width: 198px;
+}
+.mwm-form-vert input.medium, .mwm-form-vert .medium {
+	width: 180px;
+}
+.mwm-form-vert input.long, .mwm-form-vert .long {
+	width: 300px;
+}
+.mwm-form-vert input.password {
+	width: 300px;
+}
+.center {
+	text-align: center;
+}
+/*必填的**/
+.mwm-form-vert .label .required {
+	margin-right: 5px;
+	color: #FF9900;
+}
+.mwm-form-vert .tip-required {
+	float: left;
+	padding-left: 10px;
+	color: #FF9900;
+}
+.mwm-form-vert .tip{
+	float: left;
+	padding-left: 10px;
+	color: #999;
+}
+/*时间控件调整*/
+.mwm-form-vert .label .required {
+	margin-right: 5px;
+	color: #FF9900;
+}
+/* end form */
+
+
+/*5、弹出框（dialog）------start*/
+/* mask */
+.ui-mask {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #000;
+	z-index: 9999;
+}
+/* 文本框提示 */
+.ui-tips {
+	position: fixed;
+	top: 45%;
+	left: 10px;
+	right: 10px;
+	z-index: 10000;
+	text-align: center;
+}
+.ui-tips-i {
+	position: relative;
+	display: inline-block;
+	min-height: 48px;
+	line-height: 18px;
+	font-weight: bold;
+	font-size: 14px;
+	color: #666;
+	border: 1px solid #ccc;
+	padding: 0 10px 0 10px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 6px;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 1px 6px;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FAFAFA), to(#E4E4E4));
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background: #fff;
+}
+.ui-tips-text {
+	padding: 15px 0;
+	display: inline-block;
+}
+.ui-tips-icon {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 36px;
+	height: 48px;
+	margin-top: -24px;
+}
+.ui-tips-succeed .ui-tips-icon {
+	background: url(tips-succeed.png) no-repeat center;
+}
+.ui-tips-succeed .ui-tips-i {
+	padding-left: 32px;
+}
+.ui-tips-error .ui-tips-icon {
+	background: url(tips-error.png) no-repeat center;
+}
+.ui-tips-error .ui-tips-i {
+	padding-left: 32px;
+}
+.ui-tips-info .ui-tips-icon {
+	background-position: 0 -96px;
+}
+.ui-tips-loading .ui-tips-i {
+	padding-left: 32px;
+}
+.ui-tips-loading .ui-tips-icon {
+	background: url(tips-loading.gif) no-repeat center;
+}
+/* 弹出框 */
+.ui-dialog :focus {
+	outline: none;
+}
+.ui-dialog {
+	font: 16px/1.2em;
+	color: #666;
+	display: block;
+	position: fixed;
+	top: 30%;
+	left: 50%;
+	background-color: #fff;
+	z-index: 10000;
+	border-radius: 4px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+	z-index: 10000;
+}
+.ui-dialog-header {
+	padding: 0 10px;
+}
+.ui-dialog-title {
+	line-height: 32px;
+	border-bottom: 1px solid #ddd;
+	display: none;
+}
+.ui-dialog-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 14px;
+	height: 14px;
+	background: url(ui-dialog-close.png) -36px 0 no-repeat;
+	cursor: pointer;
+	display: none;
+}
+.ui-dialog-close:hover {
+	background-position: -18px 0;
+}
+.ui-dialog-content {
+	padding: 10px;
+	min-height: 16px;
+	text-align: center;
+}
+.ui-dialog-footer {
+	padding: 10px 0;
+	text-align: center;
+}
+.ui-dialog-input {
+	width: 94%;
+	height: 20px;
+	padding: 3px 5px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+}
+.ui-dialog-input:hover {
+	outline: none;
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.ui-dialog-button {
+	border: 0;
+	padding: 10px 40px;
+	margin: 0 3px;
+	margin-top:23px;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #fff;
+}
+.ui-dialog-ok {
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#FF9900), to(#FF9900));
+	background: #FF9900;
+}
+.ui-dialog-cancel {
+	color: #666;
+}
+.ui-dialog-ok:hover {
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#FF9900), to(#FF9900));
+}
+/* end dialog */
+
+
+
+
+
+/*6、tabs------start*/ 
+.mwm-tabs-simple ul {
+	height: 44px;
+}
+.mwm-tabs-simple ul li {
+	height: 35px;
+	float: left;
+	margin: 0px 10px;
+	padding: 0px 25px;
+	padding-top: 4px;
+	line-height: 44px;
+	color: #333;
+}
+.mwm-tabs-simple ul li.on,.mwm-tabs-simple ul li.hover {
+	height: 35px;
+	float: left;
+	margin: 0px 10px;
+	border-bottom: 5px solid #ff9900;
+	padding-top: 4px;
+	line-height: 44px
+}
+
+.mwm-tabs-normal ul {
+	height: 55px;
+}
+.mwm-tabs-normal ul li {
+	height: 31px;
+	line-height: 31px;
+	width: 82px;
+	float: left;
+	margin: 12px 10px 0px;
+	text-align: center;
+	border-radius: 5px;
+}
+.mwm-tabs-normal ul li.on,.mwm-tabs-normal ul li.hover {
+	height: 31px;
+	width: 82px;
+	float: left;
+	margin: 12px 10px 0px;
+	background-color: #ff9900;
+	text-align: center;
+	color: #ffffff;
+	border-radius: 5px;
+}
+.mwm-tabs-shadow ul {
+	height: 55px;
+	background-color: #f2f2f2
+}
+.mwm-tabs-shadow ul li {
+	height: 31px;
+	line-height: 31px;
+	width: 82px;
+	float: left;
+	margin: 12px 10px 0px;
+	text-align: center;
+	border-radius: 5px;
+}
+.mwm-tabs-shadow ul li.on,.mwm-tabs-shadow ul li.on {
+	height: 31px;
+	width: 82px;
+	float: left;
+	margin: 12px 10px 0px;
+	background-color: #ff9900;
+	text-align: center;
+	color: #ffffff;
+	border-radius: 5px;
+}
+/*节点树*/
+.mwm-tabs-pointtree {
+	clear:both;
+	background-color:#f2f2f2;
+	color:#333;
+	padding:10px;
+	border-bottom:1px solid #ccc;
+}
+/* end tabs */
+
+/*7、分页------start*/
+
+.pagination {
+	margin: 10px 0 0 0;
+	height: 12%;
+	clear: both;
+	overflow: hidden;
+}
+.pagination div.results {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	float: left
+}
+.pagination div.results span {
+	margin: 0;
+	padding: 6px 8px 6px 8px;
+	height: 25%;
+	display: block;
+	float: left;
+	background: #ebebeb url("pager.png") repeat-x;
+	border-top: 1px solid #dedede;
+	border-left: 1px solid #cfcfcf;
+	border-right: 1px solid #c4c4c4;
+	border-bottom: 1px solid #c4c4c4;
+	color: #4A4A4A;
+	font-weight: bold;
+}
+.pagination ul.pager {
+	margin: 0;
+	padding: 0;
+	float: right;
+	text-align: right;
+}
+.pagination ul.pager li {
+	margin: 0 0 0 4px;
+	padding: 0;
+	height: 25%;
+	float: left;
+	list-style: none;
+	background: #ebebeb url("pager.png") repeat-x;
+	border-top: 1px solid #dedede;
+	border-left: 1px solid #cfcfcf;
+	border-right: 1px solid #c4c4c4;
+	border-bottom: 1px solid #c4c4c4;
+	color: #4A4A4A;
+	font-weight: bold;
+}
+.pagination ul.pager li {
+	padding: 6px;
+}
+.pagination ul.pager .pgEmpty {
+	color: #B4B4B4;
+}
+.pagination ul.pager .pgCurrent {
+	background: url("pager_selected.png") repeat-x scroll 0 0 #B4B4B4;
+	border-color: #CCCCCC #B1B1B1 #AFAFAF #BEBEBE;
+	border-style: solid;
+	border-width: 1px;
+	color: #515151;
+	padding: 6px;
+}
+.pagination ul.pager li:hover {
+	background: url("pager_selected.png") repeat-x scroll 0 0 #B4B4B4;
+	border-color: #CCCCCC #B1B1B1 #AFAFAF #BEBEBE;
+	border-style: solid;
+	border-width: 1px;
+	color: #515151;
+	padding: 6px;
+}
+.pagination ul.pager li.separator {
+	padding: 6px;
+}
+.pagination ul.pager li.current {
+	padding: 6px;
+	background: #b4b4b4 url("pager_selected.png") repeat-x;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #bebebe;
+	border-right: 1px solid #b1b1b1;
+	border-bottom: 1px solid #afafaf;
+	color: #515151;
+}
+.pagination ul.pager li.disabled {
+	padding: 6px;
+	color: #B4B4B4;
+}
+.pagination ul.pager li a {
+	margin: 0;
+	padding: 6px;
+	height: 1%;
+	display: block;
+	float: left;
+	color: #515151;
+	text-decoration: none;
+}
+.pagination ul.pager li a:hover, .pagination ul.pager li a:active {
+	margin: -1px;
+	background: #b4b4b4 url("pager_selected.png") repeat-x;
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #bebebe;
+	border-right: 1px solid #b1b1b1;
+	border-bottom: 1px solid #afafaf;
+}
+.empty {
+    margin: 0 auto;
+    text-align: center;
+}
+/*page  end*/
+
+/*8、链接的颜色*/
+.mwm-a-gray a{ color: #666}
+.mwm-a-gray a:hover{color: #ff9900;}
+.mwm-a-color a{color: #FF9900;text-decoration: underline}
+.mwm-a-color a:hover{color: #666;text-decoration: underline}
+
+/*a  end*/
+
+
+/*head部分的css*/  
+.mwm-frame-head {
+	border-top: 6px solid #ff9900;
+	background-color: #FFFFFF;
+}
+.mwm-frame-head-bmline{position:absolute;left:0;bottom:0;border-bottom:1px solid #cccccc;width:100%;height:1px;}
+.mwm-frame-head .logo {
+	float: left;
+	margin: 5px 25px;
+}
+.mwm-frame-head .logo img {
+	height: 50px;
+}
+.mwm-frame-head .left {
+	float: left;
+	line-height: 63px;
+}
+.mwm-frame-head .left  {
+	font-size: 24px;
+	font-weight: bolder;
+}
+.mwm-frame-head .right1, .mwm-frame-head .right2 {
+	float: right;
+	margin-top: 10px;
+	margin-right: 10px;
+}
+.mwm-frame-head .right1 span {
+	color: #333
+}
+.mwm-frame-head .right2 span {
+	color: #333
+}
+/*menu部分的css */
+body.mwm-frame-menu {
+	background-color: #f2f2f2;
+}
+.mwm-frame-menu {
+	background-color: #f2f2f2;
+	font-size: 12px;
+	border-right: 1px solid #ccc;
+	overflow-x:hidden;
+}
+.mwm-frame-menu .item {
+	clear:both;
+	background: #fff;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin-top: 6px;
+	cursor:pointer;
+}
+.mwm-frame-menu .item .item-top {
+	height: 36px;
+	line-height: 36px;
+	padding-left: 10px;
+}
+.mwm-frame-menu .item .item-top a,.mwm-frame-menu .item .item-top a:visited{display:block;float:left;color:#333;}
+.mwm-frame-menu .item .item-top.hover a{
+	color:#ff9900;
+}
+.mwm-frame-menu .item .item-top .item-top-icon {
+	float: right;
+	width: 36px;
+	display:block;
+	height:36px;
+	background:url(arrow-down.png) no-repeat center;
+}
+.mwm-frame-menu .item .item-top.on .item-top-icon,.mwm-frame-menu .item .item-top.hover .item-top-icon{
+	background:url(arrow-up.png) no-repeat center;
+}
+.mwm-frame-menu .item ul {
+	border-top: 1px solid #ccc;
+	display: block;
+	cursor: pointer;
+	background:#fff;
+}
+
+.mwm-frame-menu .item ul a {
+	color: #333;
+}
+.mwm-frame-menu .item ul li a {
+	display: block;
+	height: 32px;
+	line-height: 32px;
+	padding-left: 20px;
+}
+.mwm-frame-menu .item ul li a.on,.mwm-frame-menu .item ul li a.hover {
+	color: #fff;
+}
+.mwm-frame-menu .item ul li.on a,.mwm-frame-menu .item ul li.hover a {
+	color: #fff;
+	background: #ff9900;
+}
+.mwm-frame-menu .item ul li a.on,.mwm-frame-menu .item ul li a.hover  {
+	color: #fff;
+}
+.mwm-frame-menu .item ul li.on a,.mwm-frame-menu .item ul li.hover a {
+	color: #fff;
+	background: #ff9900;
+	
+}
+/*content部分的css*/  
+.mwm-frame-content {
+}
+/*导航定位*/ 
+
+
+
+/*登陆界面*/
+.mwm-frame-loginpage {
+}
+.mwm-frame-loginpage .login {
+	width:300px;
+	border-radius: 5px;
+	background-color:#eaebef;
+	padding:10px;
+	color: #666;
+	font-size: 16px;
+	margin-top: 7%;
+	padding-right:10px;
+}
+.mwm-frame-loginpage .inputName,.mwm-frame-loginpage .inputPwd{
+	padding:10px;
+	padding-top:5px;
+}
+.mwm-frame-loginpage .inputName{
+	padding-top:15px;
+}
+.mwm-frame-loginpage .text,.mwm-frame-loginpage .password,.mwm-frame-loginpage .button  {
+    border-radius: 5px;
+    border:0;
+    height: 45px;
+    width: 280px;
+    padding:10px;
+}
+.mwm-frame-loginpage .text{
+	background-image: url("login_people.png");
+	background-repeat: no-repeat;
+	background-position:  94% 50%; 
+	
+}
+.mwm-frame-loginpage .password{
+	background-image: url("login_lock.png");
+	background-repeat: no-repeat;
+	background-position:  94% 50%;  
+	
+}
+.mwm-frame-loginpage .button{
+	background-color: #ff9900;
+	color:#fff;
+}
+.mwm-frame-loginpage .findPwd{
+	text-align:center;
+	text-decoration: underline;
+	font-size: 12px;
+	padding:5px;
+
+}
+
+.mwm-frame-loginpage .top{
+	width: 100%;
+	text-align: center;
+	line-height: 100px;
+}
+.mwm-frame-loginpage .top span{
+	font-size: 40px;
+	color: #Eaeaef;
+}
+.mwm-frame-loginpage .bottom{
+	height: 10%;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	text-align: center;
+	line-height: 10%;
+	
+	text-align: center;
+	line-height: 30px;
+	font-size: 16px;
+	color: #666;
+}
+
+
+/*悦旅行的登陆界面*//*本插件由草&根&源&码&社&区提&供 www^cg^zzn^com*/
+.container{
+	height:100%;
+	width:100%;
+	overflow: hidden;
+	display: table-cell;
+	vertical-align: middle;
+	
+}
+.content{
+	overflow: hidden;
+	width: 100%;
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
+	filter:alpha(opacity=90);
+	float:left;
+}
+.content-middle{
+	overflow: hidden;
+	width: 700px;
+	margin: 0 auto;
+	padding: 60px 0;
+	
+}
+.container .content .content-middle .logo{
+	display:block;
+	float: left;
+	width: 300px;
+	text-align: middle;
+	padding:50px 20px 50px 20px;
+	margin: 0 auto;
+}
+.container .content .content-middle .logo img{
+	display:block;
+	width: 100px;
+	margin: 0 auto;
+	
+}
+.container .content .content-middle .login-box{
+	overflow: hidden;
+	display:block;
+	float: left;
+	width: 300px;
+	text-align: middle;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.container  .login-box .text,.container .login-box .password{
+    border-radius: 5px;
+    border:0;
+    height: 45px;
+    width: 280px;
+    padding-left:10px;
+    border:1px solid #fff;
+}
+.container .login-box .mwm-button-color{
+	float: right;
+	
+}
+.container  .login-box .text{
+	background-image: url("login_people.png");
+	background-repeat: no-repeat;
+	background-position:  94% 50%;
+}
+.container  .login-box .rand{
+	background-image: url("security.png");
+	background-repeat: no-repeat;
+	background-position:  94% 50%;
+	
+}
+.container  .login-box .password{
+	background-image: url("login_lock.png");
+	background-repeat: no-repeat;
+	background-position:  94% 50%;  
+}
+.container  .login-box .text:hover,.container  .login-box .password:hover {
+	border: 1px solid #ff9900;
+	-moz-box-shadow: 0 0 4px rgba(82,168,236,.7);
+	-webkit-box-shadow: 0 0 4px rgba(82,168,236,.7);
+}
+.container  .login-box .inputName,.container  .login-box .inputPwd,.container  .login-box span{
+	padding:10px;
+	padding-top:5px;
+
+}
+.container  .login-box .inputName .rand{
+	margin-bottom: 10px;
+}
+.container  .login-box span{
+	display:block;
+	font-size: 16px;
+	color: #333;
+	padding-bottom: 12px;
+}
+.container .bottom{
+	width: 100%;
+	height:100px;
+	text-align: center;
+	font-size: 16px;
+	color: #fff;
+	line-height:100px;
+}
+
+
+/*弹出框css（未移植到框架）*/
+#brands li {
+    border-bottom: 1px solid #ccc;
+    font-size: 12px;
+    height: auto;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-left: 5px;
+    text-align: left;
+}
+
+.ui-dialog-yes{
+	border: 0 none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 3px;
+    background-color:#ff9900;
+    vertical-align: middle;
+    height: 32px;
+    width: 102px;
+}
+.ui-dialog-yes a:hover,.ui-dialog-yes a:active {
+	background-color: #FF6600;
+	color:#fff;
+}
+
+
+
+
+
+
+
+

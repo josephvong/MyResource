@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+.page{margin:2em;}
+.page a{text-decoration:none; display:inline-block; line-height:14px; padding:2px 5px; color:#333;border:1px solid #ccc;margin:0 2px;}
+.page a:hover, .page a.on{background:#999;color:#fff;border:1px solid #333;}
+.page a.unclick, .page a.unclick:hover{background:none;border:1px solid #eee; color:#999; cursor:default;}
+.page a.prev{}
+.page a.next{}
+</style>
+</head>
+<body>
+<div class="page"></div>
+<div class="page"></div>
+</body>
+<script>
+function setPage(container,count,pageindex,fn){
+	var container=container;
+	var count=count;
+	var pageindex=pageindex;
+	var a=[];
+
+	if (pageindex==1)
+	{
+		a[a.length]="<a href='#' class='prev unclick'>prev</a>";
+	}else{
+		a[a.length]="<a href='#' class='prev'>prev</a>";
+	}
+
+	function setPageList(){
+		if (pageindex==i)
+		{
+			a[a.length]="<a href='#' class='on'>"+i+"</a>";
+		}else{
+			a[a.length]="<a href='#' >"+i+"</a>";
+		}
+	}
+
+	if (count<=10)
+	{
+		for (var i=1;i<=count ;i++ )
+		{
+			setPageList()
+		}
+	}else {
+		if (pageindex<=4)
+		{
+			for (var i=1;i<=5 ;i++ )
+			{
+				setPageList();
+			}
+			a[a.length]="...<a href='#' >"+count+"</a>";
+		}else if (pageindex>=count-3)
+		{
+			a[a.length]="<a href='#' >1</a>...";
+			for (var i=count-4;i<=count ;i++ )
+			{
+				setPageList();
+			}
+		}else{
+			a[a.length]="<a href='#' >1</a>...";
+			for (var i=pageindex-2;i<=pageindex+2 ;i++ )
+			{
+				setPageList();
+			}
+			a[a.length]="...<a href='#' >"+count+"</a>";
+		}
+	}
+
+	if (pageindex==count)
+	{
+		a[a.length]="<a href='#' class='next unclick'>next</a>";
+	}else{
+		a[a.length]="<a href='#' class='next'>next</a>";
+	}
+	container.innerHTML=a.join("");
+
+	if (fn)
+	{
+		fn(count,pageindex);
+	}
+	
+	var pageClick=function(){
+		var oAlink=container.getElementsByTagName("a");
+		var inx=pageindex;
+
+		oAlink[0].onclick=function(){
+			if (inx==1)
+			{
+				return false;
+			}
+			inx--;
+			setPage(container,count,inx,fn);
+			return false;
+		}
+
+		for (var i=1;i<oAlink.length ;i++ )
+		{
+			oAlink[i].onclick=function(){
+				inx=parseInt(this.innerHTML);
+				setPage(container,count,inx,fn);
+				return false;
+			}
+		}
+
+		oAlink[oAlink.length-1].onclick=function(){
+			if (inx==count)
+			{
+				return false;
+			}
+			inx++;
+			setPage(container,count,inx,fn);
+			return false;
+		}
+	}()
+
+}
+
+setPage(document.getElementsByTagName("div")[0],12,7,function(all,now){
+	alert("总页数为："+all+"，当前页为："+now);
+});
+</script>
+</html>

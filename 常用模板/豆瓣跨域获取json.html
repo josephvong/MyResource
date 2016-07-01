@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0; padding:0}
+#search{padding:15px; line-height:20px; font-size:18px; color: blue;}
+#ul1{padding:15px; }
+.result{list-style:none; border-bottom: dashed 1px black;float:left; margin-bottom:20px;}
+.result a{text-decoration:none}
+.sum1{ float:left;height:116px; line-height:18px; font-size:14px;}
+.sum1 img{ margin:10px; display:block; float:left; width:96px; height:86px;}
+.sum1 div{margin:10px; padding-left:10px; float:left; width:700px; }
+.sum1 p{overflow:hidden;text-overflow:ellipsis; line-height:16px; font-size:14px;white-space:nowrap;}
+.sum1 span{color:red}
+</style>
+<script>
+function joseph(data){
+	var oSer=document.getElementById("search");
+	var aSpan=document.getElementsByTagName("span");
+	var oUl=document.getElementById("ul1");
+
+	var html="";
+	console.log(data);
+	aSpan[1].innerHTML=data.total+"条；";
+	aSpan[2].innerHTML=data.count+"条；";
+	for (var i=0;i<data.books.length ;i++ )
+	{
+		html+="<li class='result'><h3><a href='"+data.books[i].alt+"'>"+data.books[i].title+"</a></h3><div class='sum1'><img src='"+data.books[i].image+"'/><div><h4>简介</h4><p>"+data.books[i].summary+"</p><br/><h4>资料</h4>书籍ID:<span>"+data.books[i].id+"</span>； 书籍出版:<span>"+data.books[i].publisher+"</span>； 书籍价格: <span>"+data.books[i].price+"</span>；</div></div></li>";
+	}
+	oUl.innerHTML=html;
+
+
+
+}
+
+window.onload=function(){
+	//获取搜索框对象：
+	var oSer=document.getElementById("search");
+	var oTxt=document.getElementById("txt");
+	var oBtn=document.getElementById("btn");
+	var aSpan=document.getElementsByTagName("span");
+
+	oBtn.onclick=function(){
+		if (oTxt.value!="")
+		{
+			aSpan[0].innerHTML=oTxt.value+"；";
+			var oScript=document.createElement("script");
+			oScript.src="https://api.douban.com/v2/book/search?q="+oTxt.value+"&count=20&callback=joseph";
+			document.body.appendChild(oScript);
+
+
+		}
+	}
+}
+</script>
+</head>
+
+<body>
+<div id="search">
+	<input type="text" id="txt" />
+	<input type="button" id="btn" value="搜索"><br/><br/>
+	搜索：<span></span> 获得的结果：<span></span>  当前显示：<span></span>
+</div>
+<hr>
+<ul id="ul1">
+	<!--<li class="result">
+		<h4>圓月彎刀（上）——古龍精品集</h4>
+		<div class="sum1"><img src="http://img6.douban.com/spic/s9104305.jpg"/>
+			<div>
+			<h4>简介</h4>
+			<p >二十歲的丁鵬，在三個月裡，以一招「天外流星」，連續擊敗了三位在江湖中極負盛名的劍客。\n「天外流星」—— 從天外飛來的流星，忽然逸去，那一瞬間的光芒和速度，沒有一個人能夠阻擋。\n這是他父親留給他的劍譜，父親臨死時，留下來的遺言就是：「你一定要練成這一劍，一定替我爭口氣，讓別人知道我丁某人也有個出人頭地的兒子。」\n接下來，他就要向名滿天下的「歲寒三友」中的「青松劍客」柳若松挑戰。\n豈料，正當他在約定的時間要前往萬松山莊時，卻遇見一個年輕美麗卻渾身赤裸的女人。\n這個女人跑了過來，拉住了丁鵬，喘息著道：「救救我，你一定要救救我。」\n就在丁鵬相助，而女子以身報恩之後，最殘酷的真相被揭發了。這個貌似純潔的女子，竟是柳若松的妻子……</p><br/>
+			<h4>资料</h4>
+			书籍ID:<span>973</span>； 书籍标题:<span>古龍精品集</span>； 书籍价格: ￥<span>240</span>；
+			</div>
+		</div>
+	</li>
+	<li class="result">
+		<h4>圓月彎刀（上）——古龍精品集</h4>
+		<div class="sum1"><img src="http://img6.douban.com/spic/s9104305.jpg"/>
+			<div>
+			<h4>简介</h4>
+			<p >二十歲的丁鵬，在三個月裡，以一招「天外流星」，連續擊敗了三位在江湖中極負盛名的劍客。\n「天外流星」—— 從天外飛來的流星，忽然逸去，那一瞬間的光芒和速度，沒有一個人能夠阻擋。\n這是他父親留給他的劍譜，父親臨死時，留下來的遺言就是：「你一定要練成這一劍，一定替我爭口氣，讓別人知道我丁某人也有個出人頭地的兒子。」\n接下來，他就要向名滿天下的「歲寒三友」中的「青松劍客」柳若松挑戰。\n豈料，正當他在約定的時間要前往萬松山莊時，卻遇見一個年輕美麗卻渾身赤裸的女人。\n這個女人跑了過來，拉住了丁鵬，喘息著道：「救救我，你一定要救救我。」\n就在丁鵬相助，而女子以身報恩之後，最殘酷的真相被揭發了。這個貌似純潔的女子，竟是柳若松的妻子……</p><br/>
+			<h4>资料</h4>
+			书籍ID:<span>973</span>； 书籍标题:<span>古龍精品集</span>； 书籍价格: ￥<span>240</span>；
+			</div>
+		</div>
+	</li>
+
+		<li class="result">
+		<h4>圓月彎刀（上）——古龍精品集</h4>
+		<div class="sum1"><img src="http://img6.douban.com/spic/s9104305.jpg"/>
+			<div>
+			<h4>简介</h4>
+			<p >二十歲的丁鵬，在三個月裡，以一招「天外流星」，連續擊敗了三位在江湖中極負盛名的劍客。\n「天外流星」—— 從天外飛來的流星，忽然逸去，那一瞬間的光芒和速度，沒有一個人能夠阻擋。\n這是他父親留給他的劍譜，父親臨死時，留下來的遺言就是：「你一定要練成這一劍，一定替我爭口氣，讓別人知道我丁某人也有個出人頭地的兒子。」\n接下來，他就要向名滿天下的「歲寒三友」中的「青松劍客」柳若松挑戰。\n豈料，正當他在約定的時間要前往萬松山莊時，卻遇見一個年輕美麗卻渾身赤裸的女人。\n這個女人跑了過來，拉住了丁鵬，喘息著道：「救救我，你一定要救救我。」\n就在丁鵬相助，而女子以身報恩之後，最殘酷的真相被揭發了。這個貌似純潔的女子，竟是柳若松的妻子……</p><br/>
+			<h4>资料</h4>
+			书籍ID:<span>973</span>； 书籍标题:<span>古龍精品集</span>； 书籍价格: ￥<span>240</span>；
+			</div>
+		</div>
+	</li>-->
+</ul>
+</body>
+</html>
