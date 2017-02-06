@@ -121,7 +121,7 @@ Index：
 function getByClass(oParent,sClass){
 	var aResult=[];   // 在js内，一些特殊字符串要输出，前面要添加一个"\"来转意， 此处使用“\b”时，他前面的"\"要用多一个"\"来转意
 	var re=new RegExp('\\b'+sClass+'\\b','i'); //此正则表达式需要传参，因此需要用正规写法
-	// 若写成“/\bsClass\b/”（非正规形式）表示获取“sClass”这个字符串，而非“sClass”变量的字符串。 
+	// 若写成“/\bsClass\b/”（非正规形式）表示获取“sClass”这个字符串，而非“sClass”变量的字符串。
 		var aEle=oParent.getElementsByTagName('*');
 		for (var i=0;i<aEle.length ;i++ )
 		{
@@ -130,7 +130,7 @@ function getByClass(oParent,sClass){
 				aResult.push(aEle[i]);
 			}
 		}
-	
+
 	return aResult;
 }
 
@@ -172,19 +172,19 @@ function myAddEvent(obj,sEv,fn){
           {
                obj.attachEvent("on"+sEv,function(){
                     if (false==fn.call(obj))//使用call()方法重新指定fn中this的指向。
-                    {         
+                    {
                          event.cancelBubble=true;  return false;
                     }
                });
           }else{
                obj.addEventListener(sEv,function(ev){
                     if (false==fn.call(obj))
-                    {    
+                    {
                          ev.cancelBubble=true;  ev.preventDefault();
                     }
-               },false);         
+               },false);
           }
-     }   
+     }
 }
 
 //fireEvent(obj,events)：触发自定义事件函数，当使用“myAddEvent()”函数进行“自定义事件”添加后，需要通过以下函数“fireEvent” 来触发自定义事件。
@@ -232,10 +232,10 @@ function addScrollEvent(){
 		var oEvent=e||event;
 		var down=false; //设置滚轮向下的标识值
 		if (oEvent.wheelDelta){
-			if (oEvent.wheelDelta<0){down=true;}else{down=false;}	
-		}else {		
+			if (oEvent.wheelDelta<0){down=true;}else{down=false;}
+		}else {
 			if (oEvent.detail>0){down=true;}else{down=false;}
-		} 
+		}
 		//如果down为true时，执行参数2数组中的第一个函数（滚轮向下时的行为），否则执行数组中的第二个函数
 		if (down){functionSet[0]();}else{functionSet[1]();}
 		if (oEvent.preventDefault){oEvent.preventDefault();} //阻止鼠标滚轮的默认事件
@@ -244,7 +244,7 @@ function addScrollEvent(){
 	/*if (obj.addEventListener){obj.addEventListener("DOMMouseScroll",scrollEvent,false);}
 	obj.onmousewheel=scrollEvent;*/
 	myAddEvent(obj,"DOMMouseScroll",scrollEvent)	//需要使用“myAddEvent()”事件绑定函数
-	myAddEvent(obj,"mousewheel",scrollEvent)		
+	myAddEvent(obj,"mousewheel",scrollEvent)
 }
 
 //inpChange(obj,fn)：不同浏览器兼容“oninput”/“onpropertychange”事件的函数，参数obj为“input”对象，fn为“oninput”事件持续触发的函数。
@@ -276,7 +276,7 @@ function addClass(obj, className){ //函数参数为要添加类的对象 、 �
 }
 
 //removeClass():给某对象删除指定class, 用法： addClass(obj,"ClassName")
-function removeClass(obj,className){	
+function removeClass(obj,className){
 	if (obj.className!="")
 	{
 		var arrClassName=obj.className.split(" ");
@@ -287,7 +287,7 @@ function removeClass(obj,className){
 			obj.className=arrClassName.join(" ");
 		}
 	}
-	
+
 }
 
 
@@ -328,12 +328,12 @@ function SetAbsPosit(objs){
 	{
 		aPos[i]={left: objs[i].offsetLeft, top: objs[i].offsetTop};
 	}
-		
+
 	for(var i=0;i<objs.length;i++)
 	{
 		objs[i].style.left=aPos[i].left+'px';
 		objs[i].style.top=aPos[i].top+'px';
-			
+
 		objs[i].style.position='absolute';
 		objs[i].style.margin="0";
 	}
@@ -346,14 +346,14 @@ function SetAbsPosit(objs){
 		aPos[i]={left: $(elem).position().left, top: $(elem).position().top};
 	});
 	objs.each(function(i,elem){
-		$(elem).css({"left":aPos[i].left,"top":aPos[i].top,"position":"absolute","margin":0});		
+		$(elem).css({"left":aPos[i].left,"top":aPos[i].top,"position":"absolute","margin":0});
 	});
 	return aPos;
 }
 */
 //getPos(obj): 该函数用于获取当前页面中某个元素离body的left和top距离。 无论这个元素外面有多少个有定位的父级元素，都可使用。参数为要检测的obj
 //用法：如果要获得json内的值可以用“var L=getPos(obj).left / var T=getPos(obj).top” 来获取
-function getPos(obj) {    
+function getPos(obj) {
           var pos = {left:0, top:0}; // 用一个json储存要获得的left 和 top
           while (obj) { //用while循环不断获取当前obj自己以及其父级的offsetLeft/Top
                pos.left += obj.offsetLeft; // 让json内的元素不断累加这些数值
@@ -361,7 +361,7 @@ function getPos(obj) {
                obj = obj.offsetParent;
           }     //直至obj的父级全部循环完毕
           return pos;  //返回结果
-     } 
+     }
 
 
 //getTop(obj) // 获取 obj离整个HTML文件顶端的offsetTop值（总高度），参数为要获取总offsetTop的对象。
@@ -388,10 +388,10 @@ function doMove ( obj,attr,dir,target,endFn ) {
 
 		var iSpeed=0;
 		if (target-iCur>0) { iSpeed=iCur+dir; }else{ iSpeed=iCur-dir; }
-			
+
 		if (target-iCur>0 && iSpeed>target || target-iCur<0 && iSpeed<target)
 		{iSpeed=target;}
-            
+
 		if (attr=="opacity")
 		{
 			obj.style.filter="alpha(opacity:"+iSpeed+")";
@@ -402,8 +402,8 @@ function doMove ( obj,attr,dir,target,endFn ) {
 
 		if ( iSpeed == target ) {
 			clearInterval( obj.timer );
-			if (endFn){endFn.call(obj);} /*endFn && endFn(); 等价于if(){}写法*/ 	
-		}	
+			if (endFn){endFn.call(obj);} /*endFn && endFn(); 等价于if(){}写法*/
+		}
 	}, 30);
 
 }
@@ -419,8 +419,8 @@ function doMove ( obj, attr, dir, target, endFn ) {
 		obj.style[attr] = speed + 'px';
 		if ( speed == target ) {
 			clearInterval( obj.timer );
-			if (endFn){endFn.call(obj);} //endFn && endFn(); 等价于if(){}写法 	
-		}	
+			if (endFn){endFn.call(obj);} //endFn && endFn(); 等价于if(){}写法
+		}
 	}, 30);
 }
 */
@@ -437,7 +437,7 @@ function Move(obj, json, fn) //json内存放 attr（属性）和 该属性的目
 		for(var attr in json)// 以下为在循环json中执行的代码
 		{
 			var iCur=0; //3. 创建一个变量iCur：用来存放对象的当前值
-			//4.判断attr：若是opacity： 
+			//4.判断attr：若是opacity：
 			if(attr=='opacity')
 			{	//这是属性为“opacity”的当前值
 				iCur=parseInt(parseFloat(getStyle(obj, attr))*100);
@@ -446,17 +446,17 @@ function Move(obj, json, fn) //json内存放 attr（属性）和 该属性的目
 			{	//属性非“opacity”的当前值（所有可用“px”作为数量单位的属性值）
 				iCur=parseInt(getStyle(obj, attr));
 			}
-			
+
 			//5.算速度
 			var pace=(json[attr]-iCur)/8;//json:{attr1:XXX,attr2:YYY}-->json[attr1]==XXX
 			pace=pace>0?Math.ceil(pace):Math.floor(pace);//将速度值取整
-			
+
 			//7.检测停止：一旦各项属性值到达json里面的目标值，返回“false”
 			if(iCur!=json[attr])//当有一个属性的iCur值未到达json里面的target值时
 			{
 				bStop=false;  // 之前设的flag变量 变为 false
 			}
-			
+
 			//6. 在循环中，让iCur的值以pace的速度缓冲运动（该部分只要“iCur!=json[attr]”则会一直运行）
 			if(attr=='opacity')
 			{
@@ -471,10 +471,10 @@ function Move(obj, json, fn) //json内存放 attr（属性）和 该属性的目
 		//8. 判断上面循环中的bStop的值：
 		if(bStop) //当bStop为true，证明对象的所有属性都达到target值
 		{
-			clearInterval(obj.timer); //停止计时器循环执行	
+			clearInterval(obj.timer); //停止计时器循环执行
 			if(fn)	//运动停止，判断函数是否有fn参数，该参数是个函数
 			{
-				//fn.call(obj); //若有则运行fn参数的函数。 
+				//fn.call(obj); //若有则运行fn参数的函数。
 				//fn;
 				fn.call(obj);//--> 这是为了可以在回调函数内调用事件触发的“this”对象。
 			}
@@ -515,7 +515,7 @@ function BncMove(obj,json,fn){
 			}
 			pace+=(json[attr]-iCur)/8;
 			pace*=0.8;
-			
+
 			if(attr=='left')
 			{
 				distant=obj.offsetLeft;
@@ -524,12 +524,12 @@ function BncMove(obj,json,fn){
 			{
 				distant=obj.offsetTop;
 			}
-			
+
 			distant+=pace;
 			if (Math.abs(pace)<1&& Math.abs(json[attr]-iCur)<1)
 			{
 				clearInterval(obj.timer);
-				if(fn){	fn.call(obj) }	//运动停止，判断函数是否有fn参数，该参数是个函数,若有则运行fn参数的函数	 
+				if(fn){	fn.call(obj) }	//运动停止，判断函数是否有fn参数，该参数是个函数,若有则运行fn参数的函数
 			}else{
 				obj.style[attr]=distant+"px";
 			}
@@ -554,12 +554,12 @@ function Shot(obj,paceX,paceY){
 				paceX*=0.8 // 顶部摩擦力效果：运动对象碰到顶部时，x轴运动速度也会减少（方向不变）
 				t=0;
 			}
-			
+
 			if (l>=document.documentElement.clientWidth-obj.offsetWidth)
 			{
 				paceX*=-0.8; //侧面摩擦力效果：接触到侧边框后速度减慢，方向改变
 				l=document.documentElement.clientWidth-obj.offsetWidth;//同上理，避免短暂的出界现象。
-			}else if (l<=0) 
+			}else if (l<=0)
 			{
 				paceX*=-0.8; //侧面摩擦力效果：接触到侧边框后速度减慢，方向改变
 				l=0;
@@ -593,9 +593,9 @@ function Drag(id,p_id){
 		{
 			case "string": pDiv=document.getElementById(p_id); break;
 			case "object": pDiv=p_id; break;
-		}	
+		}
 	}
-	
+
 	oDiv.onmousedown=function(e){
 		oEvent=e||event;
 		var insideX=oEvent.clientX-oDiv.offsetLeft;
@@ -614,7 +614,7 @@ function Drag(id,p_id){
 			var MaxL=0; var MaxT=0;
 			oEvent=e||event;
 			if (pDiv)
-			{	
+			{
 				MaxL=pDiv.offsetWidth-oDiv.offsetWidth;
 				MaxT=pDiv.offsetHeight-oDiv.offsetHeight;
 			}else{
@@ -633,7 +633,7 @@ function Drag(id,p_id){
 			this.onmousemove=null;
 			this.onmouseup=null;
 			if (this.releaseCapture)
-			{ this.releaseCapture(); }	       	
+			{ this.releaseCapture(); }
 		}
 		return false;
 	}
@@ -666,7 +666,7 @@ function DragPro(id,p_id){
 			case "object":
 			pDiv=p_id;
 			break;
-		}	
+		}
 	}
 	oDiv.timer=null; //给拖动对象添加一个timer 属性（用于存放定时器）
 	oDiv.onmousedown=function(e){
@@ -692,7 +692,7 @@ function DragPro(id,p_id){
 			var MaxL=0; var MaxT=0;
 			oEvent=e||event;
 			if (pDiv)
-			{	
+			{
 				MaxL=pDiv.offsetWidth-oDiv.offsetWidth;
 				MaxT=pDiv.offsetHeight-oDiv.offsetHeight;
 			}else{
@@ -705,7 +705,7 @@ function DragPro(id,p_id){
 			if (t<0){t=0}else if (t>=MaxT){t=MaxT}
 			oDiv.style.left=l+"px";
 			oDiv.style.top=t+"px";
-			
+
 			//计算拖拽期间拖动对象的运动速度
 			iSpeedX=l-lastX;
 		    iSpeedY=t-lastY;
@@ -721,12 +721,12 @@ function DragPro(id,p_id){
 				this.releaseCapture();
 			}
 			//放开鼠标后，选择性开启的重力弹力摩擦力的运动函数
-			//Shot(oDiv,iSpeedX,iSpeedY);         	
+			//Shot(oDiv,iSpeedX,iSpeedY);
 		}
 		return false;
 	}
 }
-//CrashTest(obj1,obj2): 碰撞检测函数，参数为两个碰撞检测对象obj1,obj2，返回值为：碰撞为true，没碰为false。 
+//CrashTest(obj1,obj2): 碰撞检测函数，参数为两个碰撞检测对象obj1,obj2，返回值为：碰撞为true，没碰为false。
 //可以用轮询方式检测一个对象对多个的碰撞检测。例：for (var i=0;i<objs.length ;i++ ){if (obj==oobjs[i])continue;if (CrashTest(obj,objs[i])==true){fn}	}
 function CrashTest(obj1,obj2){
 		var l1=obj1.offsetLeft;
@@ -745,9 +745,9 @@ function CrashTest(obj1,obj2){
 		}else{
 			return true;
 		}
-	}			
+	}
 
-//getDis(obj1,obj2)：获取两个对象中心点之间的距离（获取一个数）参数为两个对象	
+//getDis(obj1,obj2)：获取两个对象中心点之间的距离（获取一个数）参数为两个对象
 function getDis(obj1,obj2){ //获取两个对象之间的距离函数
 	var a=(obj1.offsetLeft+obj1.offsetWidth/2)-(obj2.offsetLeft+obj2.offsetWidth/2);
 	var b=(obj1.offsetTop+obj1.offsetHeight/2)-(obj2.offsetTop+obj2.offsetHeight/2);
@@ -763,7 +763,7 @@ function MousDir(obj,e){
 
 //SideAd(obj,O_Bottom)：侧边栏广告滑动函数；参数：obj-运动（广告）模块，oBottom-运动模块离浏览器可视区域底部的距离。
 //该函数可以检测浏览器 scrollBar 的（上下）滚动方向。 PS：该函数需要调用缓冲运动模块。
-//PS：加载或使用跟随浏览器滚动的按钮或动态侧边栏时最好用：“window.onresize=window.onload=function{对象/函数}” 
+//PS：加载或使用跟随浏览器滚动的按钮或动态侧边栏时最好用：“window.onresize=window.onload=function{对象/函数}”
 function SideAd(obj,O_Bottom){
 	var B_Height=document.documentElement.clientHeight;
 	var O_Height=obj.offsetHeight;
@@ -792,10 +792,10 @@ function KeyDownMove(id){
 	{
 		case "string": oDiv=document.getElementById(id); break;
 		case "object": oDiv=id; break;
-	}	
+	}
 	var timer=null;
 	var up=down=right=left=false;
-	
+
 	setInterval(function(){
 		if (up)
 		{	oDiv.style.top=oDiv.offsetTop-10+"px";
@@ -807,7 +807,7 @@ function KeyDownMove(id){
 		{	oDiv.style.left=oDiv.offsetLeft+10+"px";
 		}
 	},50);
-	
+
 	document.onkeydown=function(e){
 		var oEvent=e||event;
 		switch (oEvent.keyCode)
@@ -840,10 +840,10 @@ function Shake(obj,attr,endFn){
 //设置震动幅度及频率：i为20，每次 i-2 直到i=0，将正负i 存入arr
 	for (var i=20;i>0 ;i-=2 ){ 	arr.push(i,-i); }
 	arr.push(0); //同时将0存入arr
-		
+
 	clearInterval( obj.shake ); //指定动作：运动前关闭定时器（此处的定时器用“shake”储存）
 
-	obj.shake = setInterval(function (){  //开动计时器，让对象的attr值循环加上arr数组内的元素 
+	obj.shake = setInterval(function (){  //开动计时器，让对象的attr值循环加上arr数组内的元素
 		obj.style[attr] = parseInt(getStyle(obj,attr)) + arr[num] + 'px';
 		num++;
 		if (num<arr.length) //判断在加arr[i]的过程中，未加到最后时函数开关都设为关
@@ -921,7 +921,7 @@ function onMouseWheel(e){
 		}
 		return false;
 	}
-//绑定事件函数：用 “myAddEvent(obj,sEvent,fn)”函数进行绑定。	
+//绑定事件函数：用 “myAddEvent(obj,sEvent,fn)”函数进行绑定。
 	myAddEvent(obj,"mousewheel",onMouseWheel); //obj为接收鼠标滑轮对象
 	myAddEvent(obj,"DOMMouseScroll",onMouseWheel);
 
@@ -952,7 +952,7 @@ function startMove(obj,json,times,fx,fn){
 		fx='linear';
 	}
 	else if (typeof times=='number'){ //若只有时间，但没有fx的参数值
-		if (typeof fx=="function")	
+		if (typeof fx=="function")
 		{
 			fn=fx;					//fx参数的位置是个函数时，将这个位置的值指向fn参数
 			fx='linear';			//默认fx为‘linear’
@@ -998,7 +998,7 @@ function startMove(obj,json,times,fx,fn){
 		{
 			clearInterval(obj.timer);
 			if (fn){
-				fn.call(obj); 
+				fn.call(obj);
 			}
 		}
 	},13)//13微秒循环一次定时器（预设值）
@@ -1023,7 +1023,7 @@ function startMove(obj,json,times,fx,fn){
 1. "linear": 匀速运动； 2. "easeIn": 加速运动； 3. "easeOut"： 减速运动
 
 明显加减速运动：
-1. "easeInStrong"：双倍加速运动，更明显前慢后快	
+1. "easeInStrong"：双倍加速运动，更明显前慢后快
 2. "easeOutStrong"：双倍加速运动，更明显前快后慢
 3. "easeBothStrong"：明显的两头慢中间快
 
@@ -1073,17 +1073,17 @@ var Tween = {
 		return -c/2 * ((t-=2)*t*t*t - 2) + b;
 	},
 	elasticIn: function(t, b, c, d, a, p){  //正弦衰减曲线（弹动渐入）
-		if (t === 0) { 
-			return b; 
+		if (t === 0) {
+			return b;
 		}
 		if ( (t /= d) == 1 ) {
-			return b+c; 
+			return b+c;
 		}
 		if (!p) {
-			p=d*0.3; 
+			p=d*0.3;
 		}
 		if (!a || a < Math.abs(c)) {
-			a = c; 
+			a = c;
 			var s = p/4;
 		} else {
 			var s = p/(2*Math.PI) * Math.asin (c/a);
@@ -1107,7 +1107,7 @@ var Tween = {
 			var s = p/(2*Math.PI) * Math.asin (c/a);
 		}
 		return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
-	},    
+	},
 	elasticBoth: function(t, b, c, d, a, p){
 		if (t === 0) {
 			return b;
@@ -1119,17 +1119,17 @@ var Tween = {
 			p = d*(0.3*1.5);
 		}
 		if ( !a || a < Math.abs(c) ) {
-			a = c; 
+			a = c;
 			var s = p/4;
 		}
 		else {
 			var s = p/(2*Math.PI) * Math.asin (c/a);
 		}
 		if (t < 1) {
-			return - 0.5*(a*Math.pow(2,10*(t-=1)) * 
+			return - 0.5*(a*Math.pow(2,10*(t-=1)) *
 					Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
 		}
-		return a*Math.pow(2,-10*(t-=1)) * 
+		return a*Math.pow(2,-10*(t-=1)) *
 				Math.sin( (t*d-s)*(2*Math.PI)/p )*0.5 + c + b;
 	},
 	backIn: function(t, b, c, d, s){     //回退加速（回退渐入）
@@ -1143,10 +1143,10 @@ var Tween = {
 			s = 3.70158;  //回缩的距离
 		}
 		return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
-	}, 
+	},
 	backBoth: function(t, b, c, d, s){
 		if (typeof s == 'undefined') {
-			s = 1.70158; 
+			s = 1.70158;
 		}
 		if ((t /= d/2 ) < 1) {
 			return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
@@ -1155,7 +1155,7 @@ var Tween = {
 	},
 	bounceIn: function(t, b, c, d){    //弹球减振（弹球渐出）
 		return c - Tween['bounceOut'](d-t, 0, c, d) + b;
-	},       
+	},
 	bounceOut: function(t, b, c, d){
 		if ((t/=d) < (1/2.75)) {
 			return c*(7.5625*t*t) + b;
@@ -1165,7 +1165,7 @@ var Tween = {
 			return c*(7.5625*(t-=(2.25/2.75))*t + 0.9375) + b;
 		}
 		return c*(7.5625*(t-=(2.625/2.75))*t + 0.984375) + b;
-	},      
+	},
 	bounceBoth: function(t, b, c, d){
 		if (t < d/2) {
 			return Tween['bounceIn'](t*2, 0, c, d) * 0.5 + b;
@@ -1207,7 +1207,7 @@ function css(obj, attr, value)
 			default:
 				obj.style[attr]=value;
 		}
-	
+
 	return function (attr_in, value_in){css(obj, attr_in, value_in)};
 }
 
@@ -1224,7 +1224,7 @@ function miaovStartMove(obj, oTarget, iType, fnCallBack, fnDuring)
 	{
 		clearInterval(obj.timer);
 	}
-	
+
 	switch(iType)
 	{
 		case MIAOV_MOVE_TYPE.BUFFER:
@@ -1234,7 +1234,7 @@ function miaovStartMove(obj, oTarget, iType, fnCallBack, fnDuring)
 			fnMove=miaovDoMoveFlex;
 			break;
 	}
-	
+
 	obj.timer=setInterval(function (){
 		fnMove(obj, oTarget, fnCallBack, fnDuring);
 	}, 15);
@@ -1247,28 +1247,28 @@ function miaovDoMoveBuffer(obj, oTarget, fnCallBack, fnDuring)
 	var attr='';
 	var speed=0;
 	var cur=0;
-	
+
 	for(attr in oTarget)
 	{
 		cur=css(obj, attr);
 		if(oTarget[attr]!=cur)
 		{
 			bStop=false;
-			
+
 			speed=(oTarget[attr]-cur)/5;
 			speed=speed>0?Math.ceil(speed):Math.floor(speed);
-			
+
 			css(obj, attr, cur+speed);
 		}
 	}
-	
+
 	if(fnDuring)fnDuring.call(obj);
-	
+
 	if(bStop)
 	{
 		clearInterval(obj.timer);
 		obj.timer=null;
-		
+
 		if(fnCallBack)fnCallBack.call(obj);
 	}
 }
@@ -1279,7 +1279,7 @@ function miaovDoMoveFlex(obj, oTarget, fnCallBack, fnDuring)
 	var attr='';
 	var speed=0;
 	var cur=0;
-	
+
 	for(attr in oTarget)
 	{
 		if(!obj.oSpeed)obj.oSpeed={};
@@ -1288,7 +1288,7 @@ function miaovDoMoveFlex(obj, oTarget, fnCallBack, fnDuring)
 		if(Math.abs(oTarget[attr]-cur)>1 || Math.abs(obj.oSpeed[attr])>1)
 		{
 			bStop=false;
-			
+
 			obj.oSpeed[attr]+=(oTarget[attr]-cur)/5;
 			obj.oSpeed[attr]*=0.7;
 			var maxSpeed=65;
@@ -1296,13 +1296,13 @@ function miaovDoMoveFlex(obj, oTarget, fnCallBack, fnDuring)
 			{
 				obj.oSpeed[attr]=obj.oSpeed[attr]>0?maxSpeed:-maxSpeed;
 			}
-			
+
 			css(obj, attr, cur+obj.oSpeed[attr]);
 		}
 	}
-	
+
 	if(fnDuring)fnDuring.call(obj);
-	
+
 	if(bStop)
 	{
 		clearInterval(obj.timer);
@@ -1447,9 +1447,9 @@ function quickSort(arr,flag){
 	var numVal=arr.splice(num,1); //用splice() 在arr 中截取 index为num的元素（并返回该数）。
 	var left=[];
 	var right=[];
-	
+
 	if (flag==true) //判断参数flag， 若为true
-	{		
+	{
 		for (var i=0;i<arr.length ;i++ )
 		{
 			if (arr[i]<numVal) //从小到大排
@@ -1471,14 +1471,14 @@ function quickSort(arr,flag){
 			}
 		}
 		return quickSort(left).concat([numVal],quickSort(right));
-	} 
+	}
 }
 
 //Cookie操作自定义函数：-------------------------------------------------------------------------
 //setCookie(name, value, iDay)：设置cookie的函数；三个参数：cookie名；cookie值，过期日期
 function setCookie(name, value, iDay) //设置cookie的函数。
 {	//三个参数：cookie名；cookie值，过期日期
-	var oDate=new Date(); 
+	var oDate=new Date();
 	oDate.setDate(oDate.getDate()+iDay);
 	document.cookie=name+'='+value+';expires='+oDate;
 }
@@ -1489,14 +1489,14 @@ function getCookie(name)//该函数的参数为 name（cookie的name）
 //'username=abc; password=123456; aaa=123; bbb=4r4er' 假设这是一个cookie字符串
 	var arr=document.cookie.split('; ');//将该字符串以“; ”为间隔隔开形成数组
 	var i=0;
-	
+
 	//arr->['username=abc', 'password=123456', ...]
-	
+
 	for(i=0;i<arr.length;i++) //遍历刚才生成的数组
 	{
 		//arr2->['username', 'abc']
 		var arr2=arr[i].split('='); //在每个数组元素中，以"="隔开形成一个新的数组
-		
+
 		if(arr2[0]==name) //新分割的数组中，若第一个元素为name
 		{
 			return arr2[1]; //返回第二个元素的值，这个值就是name的值。
@@ -1508,7 +1508,7 @@ function getCookie(name)//该函数的参数为 name（cookie的name）
 //removeCookie(name)：删除cookie；//参数为待删除的cookie name
 function removeCookie(name)  //参数为待删除的cookie name
 {
-	setCookie(name, '1', -1); //将这个待删除的name的过期值expires设为-1 
+	setCookie(name, '1', -1); //将这个待删除的name的过期值expires设为-1
 }
 
 
@@ -1517,7 +1517,7 @@ function removeCookie(name)  //参数为待删除的cookie name
 function displayAbbreviations(){
 	if (!document.createElement || !document.getElementsByTagName || !document.createTextNode)
 	{return false;}
-	
+
 	var arr=new Array();//创建空白数组arr为容器
 	var abbr=document.getElementsByTagName("abbr");//获取所有abbr标签称为一个数组
 	for (var i=0;i<abbr.length ;i++ )//遍历abbr数组
@@ -1532,7 +1532,7 @@ function displayAbbreviations(){
 	for(key in arr){ //遍历新的 arr数组 用变量key去遍历 （key为arr数组的每个元素名）
 		var definition=arr[key]; //将arr数组的（每个）元素“arr[key]” 定义为变量 “definition”
 		//创建dt标签 （dt为dl的属下标签），dt标签内的值为arr数组的（各个）元素名
-		var dtitle=document.createElement("dt"); 
+		var dtitle=document.createElement("dt");
 		var dtitle_text=document.createTextNode(key);
 		dtitle.appendChild(dtitle_text);
 		//创建dd标签 （dd为dl的属下标签），dd标签内的值为arr数组的（各个）元素（所代表的对象）
@@ -1552,7 +1552,7 @@ function displayAbbreviations(){
 	//将生成的header 和 dlist 添加到body下面。
 	document.body.appendChild(header);
 	document.body.appendChild(dlist);
-	//也可以用insertBefore（或insertAfter）函数添加到指定的位置	
+	//也可以用insertBefore（或insertAfter）函数添加到指定的位置
 }
 
 //displayCita(): 显示HTML文档中blockquote标签中的cite连接（引用文档连接）的函数，无参数。可以在事件里进行调用，或者使用函数addLoadEvent(displayCita)进行调用。获取到的内容会以上标的形式出现在标签内容末尾。
@@ -1581,17 +1581,17 @@ function displayCita(){
 
 //displayShortCut():显示HTML文件中<a>标签里面accesskey属性值（快捷方式）的函数。无参数。可以在事件里进行调用，或者使用函数addLoadEvent(displayShortCut)进行调用。获取到的内容会显示在页面的最末尾。
 function displayShortCut(){
-	
+
 	var alinks=document.getElementsByTagName("a");
 	var arr=new Array();
 	for (var i=0;i<alinks.length ;i++ )
-	{	
+	{
 		if (!alinks[i].getAttribute("accesskey"))continue;
 		var link_key=alinks[i].getAttribute("accesskey");
 		var link_page=alinks[i].lastChild.nodeValue;
 		arr[link_key]=link_page;
 	}
-	
+
 	var list=document.createElement("ul");
 	for (key in arr)
 	{
@@ -1692,14 +1692,14 @@ function firstLetterUpper(str){
 	var res="";
 	if (typeof str=="string")
 	{
-		res=str.charAt(0).toUpperCase()+str.substring(1); 
+		res=str.charAt(0).toUpperCase()+str.substring(1);
 	}else{	//substring(1)一个参数，表示返回截取该参数前的所有字符内容后的字符串
 		res=str;
 	}
 	return res;
-} 
+}
 
-//trim(str)：自动检测字符串首尾空格，并删除首尾空格 
+//trim(str)：自动检测字符串首尾空格，并删除首尾空格
 function trim(str){
 	var re1=/^\s+/g;  //以多个空格开头
 	var re2=/\s+$/g;  //以多个空格结尾
@@ -1728,10 +1728,10 @@ function toCamelStyle(str){
 		}else if (str.charAt(0)=="_")
 		{
 			str2="_"+str2;
-			
+
 		}
 		return str2;
-		
+
 	}
 
 //removeNum(str)：清除字符串中间数字函数
@@ -1769,7 +1769,7 @@ function caculateExistNum(str){
 }
 
 //图片预加载方法-------------------------------------------------------------------------------------
-//showImage(obj_collect)：图片按需加载函数，让出现在浏览器显示区域的图片加载。提高页面加载速度，参数（obj_collect: 需要加载的图片集合）	
+//showImage(obj_collect)：图片按需加载函数，让出现在浏览器显示区域的图片加载。提高页面加载速度，参数（obj_collect: 需要加载的图片集合）
 //用法：window.onload=function(){showImage(obj_collect)}   window.onscroll=function(){showImage(obj_collect)}
 //用于多图片陈列页面：如百度图库
 	function showImage(obj_collect) {
@@ -1878,7 +1878,7 @@ function toMosak(id,n){
 fd.readAsDataURL(fs[0]);
 fd.onload=function(){
 	var yImg=new Image();
-	yImg.onload=function(){Mosak(this,"c1");}	
+	yImg.onload=function(){Mosak(this,"c1");}
 	yImg.src=this.result;
 }
 */
@@ -1892,7 +1892,7 @@ function selectText(){
 	}else{
 		return window.getSelection().toString();
 	}
-}	
+}
 
 //getStrLen(str): 检验字符串中所有双字节的字符（如中文），并返回字符串的实际字节长度（将双字节字符长度（length）*2）。参数“str”：需要检测的字符串
 function getStrLen(str){
